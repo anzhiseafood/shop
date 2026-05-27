@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="img/logo/totia.png" type="image/png">
+    <title>安織生鮮 - 聯絡客服</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    
+    <style>
+        /* 統一配色與字體 */
+        body { 
+            background-color: #FDF9F3; 
+            color: #333; 
+            font-family: 'Cairo', 'Microsoft JhengHei', sans-serif; 
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 動畫背景層 */
+        .animation-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .floating-icon {
+            position: absolute;
+            opacity: 0.2;
+            color: #d2b48c;
+            animation: float-animation 12s infinite ease-in-out;
+        }
+        
+        .header { 
+            background-color: rgba(253, 245, 230, 0.95) !important; 
+            border-bottom: 1px solid #E5D9C3; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1100; 
+            padding: 12px 0;
+            backdrop-filter: blur(10px);
+        }
+        .navbar { padding: 0; }
+        .navbar-brand img { max-height: 38px; }
+        .navbar-toggler { border: none; padding: 10px; color: #5D4037; }
+        
+        .nav-link { 
+            color: #5D4037 !important; 
+            font-size: 16px; 
+            font-weight: 600;
+            padding: 10px 20px !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover, .nav-item.active .nav-link { color: #8B7355 !important; }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: #FDF5E6;
+                border-top: 1px solid #E5D9C3;
+                margin-top: 10px;
+                text-align: center;
+                border-radius: 8px;
+            }
+        }
+        
+        /* 聯絡資訊區塊樣式 */
+        .contact-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #E5D9C3;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.05);
+            text-align: center;
+            margin-bottom: 30px;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .contact-box:hover { transform: translateY(-5px); }
+        .contact-icon { font-size: 45px; margin-bottom: 20px; }
+        
+        .color-line { color: #06C755; }
+
+        .btn-contact {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            text-decoration: none;
+            color: white !important;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-contact:hover { transform: translateY(-2px); }
+    </style>
+
+</head>
+
+<body>
+    <!-- 動畫元素 -->
+    <div class="animation-layer">
+        <i class="fa-solid fa-envelope floating-icon" style="font-size: 80px; top: 15%; left: 10%; animation-delay: 0s;"></i>
+        <i class="fa-solid fa-headset floating-icon" style="font-size: 60px; top: 40%; right: 15%; animation-delay: 3s;"></i>
+        <i class="fa-solid fa-comments floating-icon" style="font-size: 90px; bottom: 25%; left: 20%; animation-delay: 6s;"></i>
+        <i class="fa-solid fa-paper-plane floating-icon" style="font-size: 50px; bottom: 10%; right: 10%; animation-delay: 9s;"></i>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="img/logo/totia.png" alt="..." class="mr-1">
+                    <img src="img/logo/logom.png" alt="安織生鮮">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">商品首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gomi.html">購買須知</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="contact.html">聯絡客服</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="shopee-banner" style="background: linear-gradient(135deg, #F5EBE0 0%, #E3D5CA 100%); padding: 40px 0; text-align: center; border-bottom: 1px solid #E5D9C3;">
+        <div class="container">
+            <h2 style="color: #5D4037; font-weight: 900;">聯絡安織客服</h2>
+            <p style="color: #8B7355; margin-top: 10px; font-weight: 600;">任何商品諮詢或售後問題，我們隨時為您服務</p>
+        </div>
+    </section>
+
+    <section class="contact spad" style="padding: 80px 0; background: #FDF9F3;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-box">
+                        <div class="contact-icon color-line"><i class="fab fa-line"></i></div>
+                        <h4 style="font-weight: bold; color: #5D4037;">LINE尋找小幫手</h4>
+                        <p style="color: #555;">一對一回答你想問的問題!</p>
+                        <a href="https://line.me/R/ti/p/@aaa0770f" class="btn-contact" style="background: #06C755;">立即諮詢</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-box">
+                        <div class="contact-icon" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white;"><i class="fab fa-instagram"></i></div>
+                        <h4 style="font-weight: bold; color: #5D4037;">Instagram </h4>
+                        <p style="color: #555;">掌握最新鮮的商品吧！</p>
+                        <a href="https://www.instagram.com/anzhiseafood?igsh=ZzY5eHk3bjhob2M2" target="_blank" class="btn-contact" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);">立即追蹤</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #FCF8F3; padding: 50px 0; border-top: 1px solid #E5D9C3; text-align: center;">
+        <div class="container">
+            <p style="color: #666;">客服信箱：xiaozhifood2026@gmail.com</p>
+            <p style="color: #999; font-size: 14px;">© 2026 安織生鮮 | 質感生鮮購物平台</p>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

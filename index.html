@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link class="icon" href="img/logo/totia.png" type="image/png">
+    <title>安織生鮮 - 把海的味道留給你</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 品牌基礎色調：柔和奶油色、深炭褐與高質感暖金 */
+        body { 
+            background-color: #FDF9F3; 
+            color: #333; 
+            font-family: 'Cairo', 'Microsoft JhengHei', sans-serif; 
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 跑馬燈容器 */
+        /* 跑馬燈容器 - 修改重點 */
+        /* 跑馬燈容器 - 固定且半透明 */
+       /* 跑馬燈容器 - 修改動畫循環邏輯 */
+.announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: rgba(93, 64, 55, 0.8);
+    color: #FDF5E6;
+    padding: 6px 0;
+    font-size: 15px;
+    font-weight: 300;
+    overflow: hidden;
+    white-space: nowrap;
+    backdrop-filter: blur(3px);
+    
+    /* 移除 infinite，讓動畫執行一次後停止在最後狀態 */
+    /* 總時長 180s (3分鐘)，其中跑動佔用時間較短 */
+    animation: fadeInOut 180s ease-in-out; 
+    animation-iteration-count: infinite; /* 保留無限循環以達到自動觸發的效果 */
+}
+
+/* 內容跑動動畫 - 讓它在 15 秒內跑完並停止 */
+.announcement-content {
+    display: inline-block;
+    padding-left: 100%;
+    /* 此動畫設定為只跑一次，跑完即消失 */
+    animation: marquee 30s linear;
+}
+
+/* 顯示與消失的時序控制 */
+@keyframes fadeInOut {
+    0% { opacity: 1; visibility: visible; }    /* 剛開始出現 */
+    10% { opacity: 1; visibility: visible; }   /* 顯示期間 */
+    30% { opacity: 0; visibility: hidden; }    /* 跑完文字後，12% 的時間點準時隱藏 */
+    20% { opacity: 0; visibility: hidden; }   /* 等待剩下的 88% 時間 */
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+body { padding-top: 35px; }
+
+        /* 滑鼠懸停時暫停動畫 (增加互動友善度) */
+        .announcement-bar:hover .announcement-content {
+            animation-play-state: paused;
+        }
+
+        /* 彩色線條魚蝦背景動畫 (輕量化、不阻擋點擊) */
+        .bg-animation-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        @keyframes swimRight {
+            0% { transform: translateX(-15vw) translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateX(50vw) translateY(-20px) scale(1.05) rotate(5deg); }
+            100% { transform: translateX(115vw) translateY(0) scale(1) rotate(0deg); }
+        }
+        .bg-fish {
+            position: absolute;
+            color: transparent; /* 隱藏原本填色 */
+            opacity: 0.18; /* 調整透明度確保不喧賓奪主 */
+            animation: swimRight linear infinite;
+        }
+        /* 運用 text-stroke 實現彩色線條風格 */
+        .bg-fish.f1 { top: 12%; -webkit-text-stroke: 2px #ee4d2d; animation-duration: 28s; animation-delay: -5s; font-size: 70px; }
+        .bg-fish.f2 { top: 38%; -webkit-text-stroke: 2px #D4AF37; animation-duration: 35s; animation-delay: -18s; font-size: 85px; }
+        .bg-fish.f3 { top: 65%; -webkit-text-stroke: 2px #8B7355; animation-duration: 24s; animation-delay: -2s; font-size: 60px; }
+        .bg-fish.f4 { top: 82%; -webkit-text-stroke: 2px #00B900; animation-duration: 40s; animation-delay: -25s; font-size: 95px; }
+
+        /* 智慧縮放導覽列：調整 z-index 確保在彈窗之下 (Bootstrap modal 為 1050) */
+        .header { 
+            background-color: rgba(253, 245, 230, 0.95) !important; 
+            border-bottom: 1px solid #E5D9C3; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1035; 
+            padding: 12px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .header.scrolled {
+            padding: 6px 0;
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.08);
+        }
+        .navbar { padding: 0; }
+        .navbar-brand img { max-height: 38px; transition: max-height 0.3s ease; }
+        .header.scrolled .navbar-brand img { max-height: 30px; }
+        .navbar-toggler { border: none; padding: 10px; color: #5D4037; }
+        .navbar-toggler:focus { box-shadow: none; outline: none; }
+        
+        .nav-link { 
+            color: #5D4037 !important; 
+            font-size: 16px; 
+            font-weight: 600;
+            padding: 10px 18px !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover, .nav-item.active .nav-link { color: #8B7355 !important; }
+        
+        /* 頂部導覽列獨立購物車按鈕 */
+        .header-cart-btn {
+            position: relative;
+            background: #5D4037;
+            color: white !important;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .header-cart-btn:hover {
+            background: #8B7355;
+            transform: scale(1.05);
+        }
+        .header-cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ee4d2d;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 2px 6px;
+            min-width: 18px;
+            text-align: center;
+            border: 2px solid #FDF5E6;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        /* 購物車數量變動回彈動畫 */
+        .badge-pop { transform: scale(1.3); }
+
+        /* 手機版下拉選單與佈局優化 */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: #FDF5E6 !important;
+                border-top: 1px solid #E5D9C3;
+                margin-top: 10px;
+                text-align: center;
+                border-radius: 8px;
+            }
+            .navbar-nav { padding: 10px 0; }
+            .header-cart-btn { margin: 10px auto 5px; }
+        }
+        
+        /* 商品分類過濾系統按鈕樣式 */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .filter-btn {
+            background: #FFF;
+            color: #5D4037;
+            border: 1px solid #E5D9C3;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #8B7355;
+            color: #FFF;
+            border-color: #8B7355;
+            box-shadow: 0 4px 10px rgba(139, 115, 85, 0.2);
+        }
+
+        /* 統一商品卡片視覺：高度同步，絲滑過渡 */
+        .product-card { 
+            background: #ffffff; 
+            border-radius: 14px; 
+            border: 1px solid #E5D9C3; 
+            margin-bottom: 30px; 
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(93,64,55,0.03); 
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 30px); /* 確保同列卡片高度等高 */
+            opacity: 1;
+            transform: scale(1);
+        }
+        .product-card.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            display: none !important;
+        }
+        .product-card:hover { 
+            transform: translateY(-6px); 
+            box-shadow: 0 12px 24px rgba(93,64,55,0.12); 
+        }
+        .product-card img {
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.03);
+        }
+        .product-info { 
+            padding: 18px; 
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .product-title { 
+            font-size: 16px; 
+            font-weight: 700; 
+            line-height: 1.4;
+            margin-bottom: 8px; 
+            color: #2b2b2b; 
+        }
+        .product-price { color: #ee4d2d; font-size: 20px; font-weight: 800; font-family: Arial, sans-serif; }
+        .promo-badge { background-color: #ffebe7; color: #ee4d2d; font-size: 11px; padding: 3px 10px; border: 1px solid #ffebe7; border-radius: 4px; display: inline-block; margin-bottom: 12px; font-weight: 600; width: fit-content; }
+        
+        /* 精緻主打/限定特殊外框線 */
+        .card-hot-delivery { border: 2px solid #ee4d2d !important; }
+        .card-hot-season { border: 2px solid #D4AF37 !important; }
+
+        /* 詳細介紹按鈕優化 */
+        .info-btn {
+            background-color: #F5EBE0;
+            color: #5D4037 !important;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            margin-bottom: 12px;
+            border: none;
+            transition: 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        .info-btn:hover { background-color: #8B7355; color: white !important; }
+
+        .footer-cta-box {
+            background: #FCF8F3; 
+            padding: 50px 0; 
+            border-top: 1px solid #E5D9C3; 
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-line-custom {
+            background: #00B900;
+            color: white !important;
+            font-weight: bold;
+            padding: 14px 45px;
+            border-radius: 50px;
+            text-decoration: none !important;
+            display: inline-block;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 185, 0, 0.2);
+        }
+        .btn-line-custom:hover {
+            background: #009900;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 185, 0, 0.3);
+        }
+        .footer-email { color: #666; font-size: 16px; margin-bottom: 8px; font-weight: 600; }
+        .footer-copyright { color: #999; font-size: 14px; }
+
+        /* 商品詳情彈窗專用樣式 */
+        .modal-content { border-radius: 20px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .modal-header { border-bottom: none; padding: 20px 20px 5px; }
+        .modal-body { padding: 0 25px 25px; }
+        .modal-footer { border-top: none; }
+        .modal-backdrop.show { backdrop-filter: blur(6px); background-color: rgba(93, 64, 55, 0.4); }
+        .modal-spec-title { font-weight: bold; color: #5D4037; border-left: 4px solid #8B7355; padding-left: 8px; margin: 15px 0 10px; }
+        .modal-desc-text { font-size: 14px; color: #555; line-height: 1.7; }
+        .spec-list { font-size: 14px; color: #666; padding-left: 20px; }
+        
+        /* 手機端返回賣場大按鈕 */
+        .modal-return-btn {
+            background-color: #8B7355;
+            color: white !important;
+            font-weight: bold;
+            border-radius: 30px;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+            transition: 0.3s;
+            margin-top: 25px;
+        }
+        .modal-return-btn:hover {
+            background-color: #5D4037;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.3);
+        }
+
+        /* 結帳流程進度條 (Progress Tracker) */
+        .checkout-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            background: #F5EBE0;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #A69084;
+            position: relative;
+            z-index: 2;
+        }
+        .progress-step.active {
+            color: #5D4037;
+        }
+        .progress-step.active .step-num {
+            background: #5D4037;
+            color: #FFF;
+        }
+        .progress-step.complete {
+            color: #8B7355;
+        }
+        .progress-step.complete .step-num {
+            background: #8B7355;
+            color: #FFF;
+        }
+        .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #D9CBBF;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: #E5D9C3;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        /* 購物車彈窗基礎與遮罩 */
+        #payment-modal, #shipping-modal, #info-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 480px; max-height: 85vh; overflow-y: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 2000; }
+        #shipping-modal { z-index: 2001; }
+        #info-modal { z-index: 2002; }
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(93, 64, 55, 0.4); backdrop-filter: blur(4px); z-index: 1999; }
+
+        /* 購物車明細美化與滑動刪除樣式 */
+        .order-summary-container {
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #E5D9C3;
+        }
+        .order-summary-swipe-item {
+            position: relative;
+            background: #fff;
+            transition: transform 0.2s ease-out;
+            user-select: none;
+            touch-action: pan-y;
+            border-bottom: 1px dashed #eee;
+        }
+        .order-summary-swipe-item:last-child { border-bottom: none; }
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 15px;
+            font-size: 15px;
+            position: relative;
+            z-index: 2;
+            background: #fff;
+        }
+        .order-summary-item .item-name {
+            color: #333;
+            font-weight: 600;
+            max-width: 48%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .order-summary-item .item-right-zone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .order-summary-item .item-subtotal {
+            color: #ee4d2d;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            min-width: 55px;
+            text-align: right;
+        }
+        /* 彈窗內購物車加減控制器美化 */
+        .modal-qty-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #E5D9C3;
+            border-radius: 20px;
+            padding: 2px 8px;
+            background: #FFFDF9;
+        }
+        .modal-qty-btn {
+            background: none;
+            border: none;
+            color: #8B7355;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 0 6px;
+            cursor: pointer;
+            outline: none;
+        }
+        .modal-qty-btn:focus { outline: none; }
+        .modal-qty-val {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5D4037;
+            min-width: 22px;
+            text-align: center;
+        }
+        .swipe-delete-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70px;
+            height: 100%;
+            background: #ee4d2d;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        /* 物流與付款選擇區塊 */
+        .shipping-option {
+            border: 2px solid #E5D9C3;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .shipping-option:hover { border-color: #8B7355; background: #FFF9F0; }
+        .shipping-option.active { border-color: #5D4037; background: #FFFDF9; box-shadow: 0 4px 12px rgba(93, 64, 55, 0.1); }
+        .shipping-option input[type="radio"] { display: none; }
+        
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D1C4A9;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        .active .radio-circle { border-color: #5D4037; }
+        .active .radio-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #5D4037;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .shipping-title { font-weight: bold; color: #5D4037; margin: 0; }
+        .shipping-fee { color: #ee4d2d; font-weight: bold; }
+
+        /* 自取專用付款細項區塊樣式 */
+        .pickup-payment-box {
+            background-color: #FFFDF9;
+            border: 1px solid #E5D9C3;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        .pickup-pay-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #8B7355;
+            margin-bottom: 10px;
+        }
+        .pickup-pay-options {
+            display: flex;
+            gap: 10px;
+        }
+        .pickup-pay-btn {
+            flex: 1;
+            border: 1.5px solid #E5D9C3;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #5D4037;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .pickup-pay-btn.selected {
+            border-color: #5D4037;
+            background-color: #F5EBE0;
+        }
+
+        /* 輸入框聚焦效果 */
+        .form-control { border: 1px solid #E5D9C3; border-radius: 8px; padding: 10px; font-size: 14px; }
+        .form-control:focus {
+            border-color: #8B7355 !important;
+            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.15);
+            outline: none;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #5D4037;
+            margin-bottom: 6px;
+        }
+        /* 拇指易觸及拇指化加減控制器 */
+        .quantity-control { display: flex; align-items: center; justify-content: flex-end; }
+        .quantity-control .qty { font-weight: bold; min-width: 24px; text-align: center; font-size: 15px; color: #5D4037; }
+        .quantity-control .btn { border-radius: 50%; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-color: #CBD5E1; color: #475569; }
+        .quantity-control .btn:hover { background: #5D4037; color: #FFF; border-color: #5D4037; }
+
+        /* 舊版大購物車條精美化：調整 z-index 確保在彈窗之下 */
+        #cart-bar {
+            box-shadow: 0 -4px 20px rgba(93, 64, 55, 0.15);
+            border-top: 1px solid #E5D9C3;
+            background: rgba(93, 64, 55, 0.96) !important;
+            backdrop-filter: blur(8px);
+            z-index: 1030;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation-container">
+        <i class="fa-solid fa-fish bg-fish f1"></i>
+        <i class="fa-solid fa-shrimp bg-fish f2"></i>
+        <i class="fa-solid fa-fish-fins bg-fish f3"></i>
+        <i class="fa-solid fa-shrimp bg-fish f4"></i>
+    </div>
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <span><i class="fa-solid fa-bullhorn mr-2"></i> ✨大家好呀 ~ 安織生鮮開站囉！🎉 開幕預購搶先跑，全館產品超級優惠！</span>
+            <span class="ml-4"><i class="fa-solid fa-gift mr-2"></i> 南投草屯『定點自取』免運費。本波預購訂單統一於 6/1 起依序出貨與開放自取，下單匯款後請務必加入官方  LINE（@022tfybd）回報後五碼，與預約自取喔~</span>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="img/logo/totia.png" alt="..." class="mr-1">
+                    <img src="img/logo/logom.png" alt="安織生鮮">
+                </a>
+                
+                <div class="d-flex align-items-center order-lg-3">
+                    <button class="header-cart-btn" id="header-cart-trigger" title="查看購物車">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        <span class="header-cart-badge" id="header-cart-count">0</span>
+                    </button>
+                    
+                    <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbarNav">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="index.html">商品首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gomi.html">購買須知</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">聯絡客服</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+  
+    <section class="shopee-banner" style="background: linear-gradient(135deg, #F5EBE0 0%, #E3D5CA 100%); padding: 50px 0; text-align: center; border-bottom: 1px solid #E5D9C3;">
+        <div class="container">
+            <h2 style="color: #4A332D; font-weight: 900; letter-spacing: 2px; margin-bottom: 12px;">織一席餐桌的日常</h2>
+            <p style="color: #6D544A; font-size: 15px; font-weight: 500; max-width: 600px; margin: 0 auto;">把海風、廚房的煙火、與午後的甜，一起與您分享！</p>
+        </div>
+    </section>
+
+    <div class="container mt-4">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">全部商品</button>
+            <button class="filter-btn" data-filter="seafood">鮮美海味</button>
+            <button class="filter-btn" data-filter="meat">精選肉品</button>
+            <button class="filter-btn" data-filter="dessert">人氣美食</button>
+        </div>
+    </div>
+
+    <section class="featured spad" style="background: transparent; padding-top: 10px; padding-bottom: 10px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12 mix-target" data-cat="seafood">
+                    <div class="product-card card-hot-delivery" data-category="seafood" data-name="【超值組】台南無刺虱目魚肚 5 盒入" data-price="550" data-promo-price="550">
+                        <div style="background: #ee4d2d; color: #fff; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【超值組】</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-5">
+                                <img src="img/food/10.jpg" class="w-100">
+                            </div>
+                            <div class="col-7">
+                                <div class="product-info">
+                                    <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">台南無刺虱目魚肚 - 5 盒入</h5>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">平均一盒只要 $110！</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <span class="product-price">$550</span>
+                                        <div class="quantity-control">
+                                            <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                            <span class="qty mx-2">0</span>
+                                            <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured spad" style="background: transparent; padding-top: 10px; padding-bottom: 20px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12 mix-target" data-cat="dessert">
+                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新口味!榴槤千層蛋糕🍰" data-price="290" data-promo-price="290">
+                        <div style="background: #F4D068; color: #5D4037; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【當季限定】</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-5">
+                                <img src="img/food/18.jpg" class="w-100">
+                            </div>
+                            <div class="col-7">
+                                <div class="product-info">
+                                    <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">🍰榴槤千層蛋糕</h5>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">400g/顆 一顆限量290！</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <span class="product-price">$290</span>
+                                        <div class="quantity-control">
+                                            <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                            <span class="qty mx-2">0</span>
+                                            <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mix-target" data-cat="dessert">
+                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新上架!泰國金枕頭榴槤肉🍰" data-price="199" data-promo-price="199">
+                        <div style="background: #F4D068; color: #5D4037; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【當季限定】</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-5">
+                                <img src="img/food/20.jpg" class="w-100">
+                            </div>
+                            <div class="col-7">
+                                <div class="product-info">
+                                    <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">金枕頭榴槤肉</h5>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">300g/盒 一盒199！</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <span class="product-price">$199</span>
+                                        <div class="quantity-control">
+                                            <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                            <span class="qty mx-2">0</span>
+                                            <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured spad" style="padding-top:40px;">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="現撈午仔魚" data-price="169" data-promo-price="141">
+                        <img src="img/food/01.jpeg" class="w-100" alt="午仔魚">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【老饕首選】產地直供現撈午仔魚" 
+                                data-desc="下班想快上菜，卻怕煎魚噴油、細刺卡到小孩？別再委屈家人吃乾柴的冷凍魚片了。我們嚴選產地現撈午仔魚，油脂如奶油般滑嫩，重點是幾乎無細刺。簡單乾煎到表皮金黃，即可享受星級餐廳的鮮甜。產地直送，這批油脂最肥美，老客戶通常一買就是六條起跳!"
+                                data-spec="<li>重量：300-400g/尾</li><li>包裝：真空獨立包裝</li><li>特色：三去外加清血路!</li>"
+                                data-img="img/food/01.jpeg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">產地直供-現撈午仔魚</div>
+                            <div class="promo-badge">兩條超值組 $310</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$169</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="紅太陽大白蝦" data-price="259" data-promo-price="201">
+                        <img src="img/food/02.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【霸氣海味】紅太陽頂級巨大白蝦" 
+                                data-desc="★ 聚餐霸氣首選！每盒 850g 重磅登場，每一口都是滿滿海味。聚餐想露一手，卻擔心買到軟爛沒味道的冷凍蝦？真正的霸氣食材，光看外型就贏一半！規格挑戰市面最大，肉質紮實 Q 彈。無論鹽烤或熱炒，爽度都是頂級。巨大規格捕獲量不穩，現貨售完即止。"
+                                data-spec="<li>重量：850g/盒 (約18尾)</li><li>保存：急速冷凍鎖鮮</li>"
+                                data-img="img/food/02.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">紅太陽頂級巨大白蝦</div>
+                            <div class="promo-badge">20/30 兩盒460!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$259</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="大西洋鮭魚" data-price="180" data-promo-price="150">
+                        <img src="img/food/03.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【厚切保證】大西洋鮭魚 (超大片)" 
+                                data-desc="大西洋鮭魚，超厚切!只給您實實在在的厚度，拒絕包冰。來自低溫海域，富含 Omega-3 油脂。真空包裝保證不包冰，簡單抹鹽乾煎，即可享受外酥內嫩的極致奢華。"
+                                data-spec="<li>重量：400g±5% (實重)</li><li>產地：大西洋低溫海域</li>"
+                                data-img="img/food/03.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">超大片鮭魚</div>
+                            <div class="promo-badge">兩片優惠 $330 售完為止</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$180</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="肉鯽仔" data-price="130" data-promo-price="130">
+                        <img src="img/food/04.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【家常必備】鮮嫩肉魚 (6 入組)" 
+                                data-desc="超划算家常首選！一包就能搞定全家人的主餐。晚餐不知道煮什麼？這款「白飯殺手」讓小孩不再挑食。一袋 6 入 CP 值爆表！裹薄粉煎到金黃焦香，魚皮酥脆、肉質細緻，是記憶中最懷念的台式家常味。"
+                                data-spec="<li>規格：6入/袋</li><li>特色：肉質細緻下飯</li>"
+                                data-img="img/food/04.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">白飯殺手-肉鯽仔(6入)</div>
+                            <div class="promo-badge">一包 6 入 </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$130</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="石狩蝦仁" data-price="250" data-promo-price="250">
+                        <img src="img/food/05.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【懶人救星】石狩蝦仁 (已開背去腸泥)" 
+                                data-desc="石狩蝦仁「拆封即煮」，完全不髒手！&#10;&#10;想煮蝦仁炒飯，想到挑腸泥就心累？專業開背徹底去除腸泥，顆顆晶瑩飽滿。&#10;&#10;760g 誠意大份量，不論炒蛋或鳳梨蝦球，5 分鐘輕鬆上菜，解救你的廚房忙碌時光。"
+                                data-spec="<li>重量：760g/包</li><li>處理：已開背、去腸泥</li>"
+                                data-img="img/food/05.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">石狩蝦仁(鮮凍開背)</div>
+                            <div class="promo-badge">760g 大份量 $250</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$250</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="台灣松阪豬" data-price="199" data-promo-price="199">
+                        <img src="img/food/06.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【頂級肉品】台灣溫體松阪豬" 
+                                data-desc=" 豬肉界的海鮮！口感脆彈不油膩，簡單煎一下就勝過五星級餐廳。&#10;&#10;一頭豬僅有的「黃金六雙肉」，極致鮮甜無腥味。嚴選台灣在地溫體豬，職人手切。&#10;&#10;油脂如雪花分佈，煎至兩面金黃後帶有迷人的脆嫩感，原味即是美味。"
+                                data-spec="<li>重量：300g/包</li><li>來源：台灣在地溫體豬</li>"
+                                data-img="img/food/06.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">台灣溫體松阪豬</div>
+                            <div class="promo-badge">300g/包</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$199</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="安格斯霜降牛五花" data-price="199" data-promo-price="199">
+                        <img src="img/food/07.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【火鍋首選】安格斯霜降牛五花肉片" 
+                                data-desc="堅持原肉切片，絕非重組肉！脂肪香氣濃厚，下鍋涮兩下即化的鮮嫩。&#10;&#10;在家就能享受頂級火鍋店般的肉質！500g 激量包，帶油筋的霜降質地，脂肪香氣濃郁，口感香甜多汁，滿足你的肉食魂。&#10;&#10;🔥 牛肉控必備：500g 只要 $189！肉肉自由就靠這包。"
+                                data-spec="<li>重量：500g±5%/包</li><li>等級：安格斯黑牛</li>"
+                                data-img="img/food/07.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">安格斯霜降牛五花</div>
+                            <div class="promo-badge">500g 激量包 </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$199</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="薄鹽鯖魚" data-price="89" data-promo-price="81">
+                        <img src="img/food/08.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【日料等級】北大西洋薄鹽鯖魚" 
+                                data-desc="★ 下班只要 10 分鐘！日本料理店專用大品牌，輕鬆搞定晚餐。&#10;&#10;富含天然魚油，薄鹽配方帶出深層鮮美。只需乾煎出焦香味，外皮酥脆、肉質鮮潤，是最下飯的完美主餐。&#10;&#10;便當菜的最佳主角。"
+                                data-spec="<li>重量：200g±30g/片</li><li>包裝：真空獨立包裝</li>"
+                                data-img="img/food/08.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title"> 北大西洋薄鹽鯖魚</div>
+                            <div class="promo-badge">兩片170!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$89</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="帶肉生鮭魚骨" data-price="119" data-promo-price="119">
+                        <img src="img/food/09.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="【高 CP 值】帶肉生鮭魚骨" 
+                                data-desc="買魚肉太貴？這包鮭魚骨「帶厚肉」，煮湯、乾煎 CP 值爆表！&#10;&#10;1000g 只要 $119！已貼心剁好，魚骨邊的肉最香嫩且富含營養。煮味噌湯濃郁、乾煎肥嫩焦脆，是老饕私藏的高 CP 首選。&#10;&#10;🔥 開心老饕最愛：1kg 只要 $109！"
+                                data-spec="<li>重量：1000g±5%/包</li><li>特色：已剁好，帶厚肉</li>"
+                                data-img="img/food/09.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">帶厚肉生鮭魚骨(1kg)</div>
+                            <div class="promo-badge">超值大份量 1kg !</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$119</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="無刺虱目魚肚" data-price="125" data-promo-price="125">
+                        <img src="img/food/10.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="台南無刺虱目魚肚XL" 
+                                data-desc=" 怕吃到迷你魚肚？我們堅持 XL 規格，每一口都厚實飽滿。&#10;&#10;台南產地直供，180-230g 大規格！中間厚實的油脂是鮮美靈魂，專業無刺處理，小孩長輩安心吃，買越多省越多。&#10;&#10;🔥 產地價回饋：五片組 $550！平均一片只要 $110。" 
+                                data-spec="<li>重量：180-230g/片</li><li>處理：完全無刺</li>" 
+                                data-img="img/food/10.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">台南無刺虱目魚肚XL</div>
+                            <div class="promo-badge">【超值囤貨組】五片$550</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$125</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="最新船凍秋刀魚" data-price="119" data-promo-price="119">
+                        <img src="img/food/12.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="正1號船凍秋刀魚" data-desc="專供高級餐廳的船凍秋刀魚!在捕獲瞬間即刻低溫「船凍」，把剛上岸的那份海味精華徹底鎖住。免去繁瑣調味，撒上一點海鹽或擠點檸檬，就是五星級的晚餐" data-spec="<li>重量：5尾/包/750克±10%</li><li>包裝：真空獨立包裝</li>" data-img="img/food/12.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title"> 正1號船凍秋刀魚</div>
+                            <div class="promo-badge">1包5入組</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$119</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="黃金鯧" data-price="139" data-promo-price="130">
+                        <img src="img/food/13.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="黃金鯧" 
+                                data-desc="下班回到家，想吃得健康點，卻想到洗魚、去鱗、處理內臟就心累？職人三去處理：去鱗、去鰓、去內臟，拆封即煮，優雅下廚不再是夢。抹點薄鹽乾煎至金黃焦香，那股迷人香氣，隔壁鄰居都會來敲門。"
+                                data-spec="<li>重量：400g±5%/尾</li><li>包裝：真空獨立包裝</li><li>包裝：真空獨立包裝</li>"
+                                data-img="img/food/13.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title"> 黃金鯧</div>
+                            <div class="promo-badge">2尾269</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$139</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="鮸魚切片" data-price="139" data-promo-price="139">
+                        <img src="img/food/14.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="鮸魚切片" 
+                                data-desc="別再買那些薄如紙、一煎就散的魚片了！我們這款鮸魚切片，主打一個「厚」字。每一片都重達 350g 以上，扎扎實實的肉質，保證讓愛吃魚的人大呼過癮。鮸魚獨有的豐富魚油，下鍋乾煎時會散發濃郁香氣，外酥內嫩。"
+                                data-spec="<li>重量：350-370g/片</li><li>包裝：真空獨立包裝</li>"
+                                data-img="img/food/14.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">鮸魚切片</div>
+                            <div class="promo-badge">每一片都重達 350g</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$139</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="美國精選牛肋條" data-price="210" data-promo-price="210">
+                        <img src="img/food/15.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="美國精選牛肋條" 
+                                data-desc="精選美國 Choice 級，肉厚、香 Q、超多汁。一包 400g 的精緻包裝，不管是小家庭煮一餐，或是單身貴族想犒賞自己，份量都恰到好處。切成小方塊下鍋乾煎，逼出牛油香氣，撒點海鹽就是頂級居酒屋風味。"
+                                data-spec="<li>重量：400克/包</li><li>包裝：真空包裝</li>"
+                                data-img="img/food/15.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">美國精選牛肋條</div>
+                            <div class="promo-badge">1包400克!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$210</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="金目鱸魚排" data-price="135" data-promo-price="135">
+                        <img src="img/food/16.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="金目鱸魚排" data-desc="給孩子吃魚，一定要選這款！無刺「鱸魚菲力」，大口吃肉不卡關。想煮鮮魚粥，肉質久煮不散，鮮甜湯頭一試難忘。" data-spec="<li>重量：300g-400g/片</li><li>包裝：真空包裝</li>" data-img="img/food/16.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">金目鱸魚排</div>
+                            <div class="promo-badge">大規格鱸魚只要135!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$135</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="野生船凍咪咪卷（大號版）" data-price="99" data-promo-price="81">
+                        <img src="img/food/19.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="野生船凍咪咪卷（大號版）" data-desc="來自純淨海域的鮮甜海味，捕獲後立即極速凍結，完美鎖住原始鮮度。我們選用大尺寸規格，隻隻眼睛透亮、斑點清晰，口感Q彈鮮脆，簡單川燙就是極致享受。" data-spec="<li>300g±10%/盒</li><li>超值價：2盒只要 $180</li>" data-img="img/food/19.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">野生船凍咪咪卷（大號版）</div>
+                            <div class="promo-badge">2盒優惠180元!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$99</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="古早味南部肉粽" data-price="410" data-promo-price="410">
+                        <img src="img/food/17.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="古早味南部肉粽" data-desc="這才是真正的南部靈魂！水煮極致黏Q、蛋黃香菇滷肉滿出來，小編從小吃到大！輕輕劃開，裡面的香菇、綿密蛋黃、肥瘦適中的特製滷肉瞬間爆出，每一口都吸飽了滷汁與粽葉的濃郁香氣，這才是真正讓人停不下來的古早味！" data-spec="<li>重量：一串10顆/2.2kg</li>" data-img="img/food/17.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">古早味南部肉粽</div>
+                            <div class="promo-badge">一串10顆，一顆只要41!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$410</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-category="dessert" data-name="榴槤千層蛋糕" data-price="290" data-promo-price="290">
+                        <img src="img/food/18.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="9sach榴槤千層蛋糕" data-desc="真正榴槤果肉入餡！5吋大牌千層蛋糕！層層堆疊的柔軟薄餅，夾著絲滑的鮮奶油，以及厚實、綿密、香氣炸裂的榴槤果肉。 含進嘴裡的瞬間，細緻的餅皮與濃郁果肉在舌尖化開，濃、醇、香交織，冰冰的吃口感就像雪糕一樣，簡真是天堂級的邪惡享受！" data-spec="<li>重量：400g（約5吋）</li><li>【限時】：好不容易爭取到的團購優惠，聰明人都直接帶兩顆！</li>" data-img="img/food/18.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">9sach榴槤千層蛋糕</div>
+                            <div class="promo-badge">限時熱銷搶購中</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$290</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-category="dessert" data-name="泰國金枕頭榴槤肉" data-price="199" data-promo-price="199">
+                        <img src="img/food/20.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="泰國金枕頭榴槤肉" data-desc="下午茶想來點不一樣的奢華享受？不用去泰國，這一口濃郁直達心頭！金黃飽滿的果肉，質地如冰淇淋般綿密。濃郁奶香與自然果甜在口中化開，每一口都是滿滿的幸福感，吃過一次就回不去了。" data-spec="<li>重量：300g/盒</li><li>超值價：199元</li>" data-img="img/food/20.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">泰國金枕頭榴槤</div>
+                            <div class="promo-badge">限時熱銷搶購中</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$199</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="鹽味毛豆莢" data-price="100" data-promo-price="100">
+                        <img src="img/food/23.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="鹽味毛豆莢" data-desc="CAS 認證 A 級非基改毛豆，省去料理煩惱，退冰即可直接享用。嚴格挑選豆仁飽滿的頂級品，薄鹽襯托出豆子的天然香氣，是追劇、配酒最唰嘴的零負擔良伴。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/23.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">鹽味毛豆莢</div>
+                            <div class="promo-badge">1000g/100元!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$100</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="紫皮栗子地瓜" data-price="160" data-promo-price="140">
+                        <img src="img/food/24.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="紫皮栗子地瓜" data-desc="嚴選優質紫皮品種，擁有如栗子般迷人的鬆軟口感，飽足感十足且營養豐富。皮薄肉多，熱熱吃溫暖鬆軟，冰涼吃口感如同天然地瓜冰淇淋，大人小孩都愛不釋手。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/24.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">紫皮栗子地瓜</div>
+                            <div class="promo-badge">兩包300</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$160</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-cat="meat" data-name="紐奧良三節翅" data-price="120" data-promo-price="120">
+                        <img src="img/food/22.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="紐奧良三節翅" data-desc="獨家調製紐奧良風味，甜辣醬汁徹底入味，肉質鮮嫩、汁水滿溢。氣炸或烤箱加熱 15 分鐘，香氣瞬間爆棚，是全家宵夜、派對狂歡絕對秒殺的必備神菜。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/22.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">紐奧良三節翅</div>
+                            <div class="promo-badge">1000g/120一包</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$120</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-cat="meat" data-name="橙香排骨" data-price="149" data-promo-price="149">
+                        <img src="img/food/25.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="橙香排骨" data-desc="選用台灣上等豬排骨，搭配主廚獨家橙香秘醬，酸甜層次豐富、開胃不油膩。濃郁果香與鮮嫩肉質結合，一上桌瞬間香氣四溢，保證全家人多添兩碗白飯。" data-spec="<li>重量：排骨320g + 醬80g/包</li>" data-img="img/food/25.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">橙香排骨</div>
+                            <div class="promo-badge">快速上桌，320g排骨</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$149</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="台灣溫體 肉很多排骨" data-price="119" data-promo-price="119">
+                        <img src="img/food/26.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" 
+                                data-title="台灣溫體 肉很多排骨" 
+                                data-desc="當日溫體台灣豬，嚴選最有肉的上排部位，每一塊都經過手工精準切塊。 肉質鮮嫩多肉又多汁無腥味，不論煮湯、糖醋還是紅燒肉，輕鬆就能端出餐廳級的家常排骨料理囉!!"
+                                data-img="img/food/26.jpg">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            </button>
+                            <div class="product-title">肉多多排骨</div>
+                            <div class="promo-badge">600克/包!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$119</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-cat="meat" data-name="老滷慢燉大腸" data-price="100" data-promo-price="89">
+                        <img src="img/food/27.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="老滷慢燉大腸" data-desc="職人堅持的老滷配方，經慢火燉煮直到每一處都極致入味，口感軟而不爛。完全去油膩處理，口感軟Q透徹，隨手復熱就是一道香氣逼人的下飯好菜，配酒更是一絕。" data-spec="<li>重量：300g/包</li>" data-img="img/food/27.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">老滷慢燉大腸</div>
+                            <div class="promo-badge">兩件180!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$100</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="澎湖明興花枝蝦漿" data-price="109" data-promo-price="109">
+                        <img src="img/food/21.jpg" class="w-100">
+                        <div class="product-info">
+                            <button type="button" class="btn info-btn" data-title="澎湖明興花枝蝦漿" data-desc="愛吃花枝蝦漿得朋友有福了!來自澎湖的明星級美味——「明興花枝蝦漿」，這才是你餐桌上該有的高級感。嚴選新鮮純花枝與Q彈海蝦仁，堅持手工打漿，不混魚漿、不加防腐劑。每一口都能吃到貨真價實的彈牙口感，鮮甜滋味在舌尖瞬間爆發！" data-spec="<li>150g±6g/袋</li>" data-img="img/food/21.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="product-title">明興花枝蝦漿</div>
+                            <div class="promo-badge">私心推薦!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$109</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-cta-box">
+        <div class="container">
+           
+            <a href="https://line.me/R/oaMessage/@022tfybd/" class="btn-line-custom">
+                <i class="fab fa-line mr-2" style="font-size:20px; vertical-align:middle;"></i>尋找安織生鮮小幫手
+            </a>
+            <div class="footer-email">客服信箱：anzhifresh@gmail.com</div>
+            <div class="footer-copyright">© 2026 安織生鮮 | 質感生鮮購物平台</div>
+        </div>
+    </footer>
+
+    <div id="cart-bar" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px 20px; z-index: 1200;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div style="color: white;">
+                <span style="font-size:14px; opacity:0.8;">已選商品金額：</span>
+                <span id="total-price" style="font-size: 22px; font-weight: 900; color:#FFF;">$0</span>
+            </div>
+            <button id="open-cart-btn" style="background: #FFF; color: #5D4037; border: none; padding: 10px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <i class="fa-solid fa-basket-shopping mr-2"></i>確認清單
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-product-title" style="font-weight: 800; color:#333;">商品名稱</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modal-product-img" src="" class="w-100 mb-3" style="border-radius:10px; width: 100%; height: auto; object-fit: contain; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div class="modal-spec-title">💡 老饕私房介紹</div>
+                    <div id="modal-product-desc" class="modal-desc-text">介紹載入中...</div>
+                    <div class="modal-spec-title">📋 商品詳細規格</div>
+                    <ul id="modal-product-spec" class="spec-list">規格載入中...</ul>
+                    
+                    <button type="button" class="modal-return-btn" data-dismiss="modal">
+                        <i class="fa-solid fa-arrow-rotate-left mr-2"></i>返回賣場繼續選購
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-overlay"></div>
+
+    <div id="payment-modal">
+        <div class="checkout-progress">
+            <div class="progress-step active"><span class="step-num">1</span>確認清單</div>
+            <div class="progress-step"><span class="step-num">2</span>物流選擇</div>
+            <div class="progress-step"><span class="step-num">3</span>填寫資料</div>
+            <div class="progress-line"></div>
+        </div>
+
+        <h4 style="color: #5D4037; font-weight: 800; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-basket-shopping mr-2"></i>確認選購清單</h4>
+        <div id="order-summary-box" class="order-summary-container">
+            </div>
+        <div class="d-flex justify-content-between align-items-center px-2 mb-3">
+            <span style="font-weight: bold; font-size: 16px; color:#333;">商品小計</span>
+            <span id="modal-total" style="font-size: 22px; font-weight: 900; color:#ee4d2d; font-family:Arial;">$0</span>
+        </div>
+        <button id="next-to-shipping-btn" class="btn btn-block" style="background: #5D4037; color: white; font-weight: bold; padding: 12px; border-radius: 30px; margin-top: 10px;">下一步，選擇配送與付款</button>
+        <p class="close-modal-trigger" style="margin-top: 15px; color: #999; cursor: pointer; font-size: 13px; text-align: center; margin-bottom: 0;">繼續選購商品</p>
+    </div>
+
+    <div id="shipping-modal">
+        <div class="checkout-progress">
+            <div class="progress-step complete"><span class="step-num">1</span>確認清單</div>
+            <div class="progress-step active"><span class="step-num">2</span>物流選擇</div>
+            <div class="progress-step"><span class="step-num">3</span>填寫資料</div>
+            <div class="progress-line"></div>
+        </div>
+
+        <h4 style="color: #5D4037; font-weight: 800; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-truck mr-2"></i>選擇配送與付款方式</h4>
+        <div class="shipping-options-group">
+            <label class="shipping-option active" data-main-type="pickup">
+                <input type="radio" name="shipping_main" value="自取" checked>
+                <div class="d-flex align-items-center">
+                    <span class="radio-circle"></span>
+                    <div>
+                        <p class="shipping-title mb-0"><i class="fa-solid fa-shop mr-1"></i> 門市自取面交</p>
+                        <small style="color: #888;">免運費，親自到指定點取貨</small>
+                    </div>
+                </div>
+                <span class="shipping-fee">+$0</span>
+            </label>
+            
+            <div id="pickup-payment-subzone" class="pickup-payment-box">
+                <div class="pickup-pay-title">請選擇面交時的付款方式：</div>
+                <div class="pickup-pay-options">
+                    <div class="pickup-pay-btn selected" data-pay-method="面交取貨付款">面交現金付款</div>
+                    <div class="pickup-pay-btn" data-pay-method="自取已先匯款">我已先行匯款</div>
+                </div>
+            </div>
+            
+            <label class="shipping-option" data-main-type="delivery">
+                <input type="radio" name="shipping_main" value="宅配">
+                <div class="d-flex align-items-center">
+                    <span class="radio-circle"></span>
+                    <div>
+                        <p class="shipping-title mb-0"><i class="fa-solid fa-truck-fast mr-1"></i> 低溫宅配到府</p>
+                        <small style="color: #888;">全程低溫安全配送（需先完成匯款）</small>
+                    </div>
+                </div>
+                <span class="shipping-fee">+$250</span>
+            </label>
+            
+            <div id="wire-info-box" class="pickup-payment-box" style="display: none;">
+                <div class="pickup-pay-title" style="color: #9f1a00;"><i class="fa-solid fa-building-columns mr-1"></i>安織生鮮匯款帳號：</div>
+                <div style="font-size:13px; color:#555; line-height:1.6; margin-bottom:10px; background:#fff; padding:10px; border-radius:6px; border:1px solid #F3EBE0;">
+                    <strong style="color:#000000; font-size:14px">⚠️宅配只限定10kg以內才配送！</strong><br>
+                    銀行代碼：中華郵政 700<br>
+                    匯款帳號：04011001141041<br>
+                </div>
+                <div class="form-group mb-0">
+                    <label for="shipping-back-five">請輸入您的轉帳後五碼 *</label>
+                    <input type="text" id="shipping-back-five" class="form-control" placeholder="請輸入 5 碼數字供對帳核對" maxlength="5">
+                </div>
+            </div>
+        </div>
+        
+        <button id="next-to-info-btn" class="btn btn-block" style="background: #5D4037; color: white; font-weight: bold; padding: 12px; border-radius: 30px; margin-top: 20px;">下一步，填寫客戶資料</button>
+        <p id="back-to-payment" style="margin-top: 15px; color: #8B7355; cursor: pointer; font-size: 13px; text-align: center; font-weight: 600; margin-bottom: 0;">返回上一步修改明細</p>
+    </div>
+
+    <div id="info-modal">
+        <div class="checkout-progress">
+            <div class="progress-step complete"><span class="step-num">1</span>確認清單</div>
+            <div class="progress-step complete"><span class="step-num">2</span>物流選擇</div>
+            <div class="progress-step active"><span class="step-num">3</span>填寫資料</div>
+            <div class="progress-line"></div>
+        </div>
+
+        <h4 style="color: #5D4037; font-weight: 800; text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-user-pen mr-2"></i>填寫收件與聯絡資料</h4>
+        
+        <div class="form-group">
+            <label for="cust-name">姓名 *</label>
+            <input type="text" id="cust-name" class="form-control" placeholder="請輸入真實姓名">
+        </div>
+        <div class="form-group">
+            <label for="cust-phone">電話聯絡手機 *</label>
+            <input type="tel" id="cust-phone" class="form-control" placeholder="例如：0912345678">
+        </div>
+        <div class="form-group">
+            <label id="address-label" for="cust-address">完整收件地址 *</label>
+            <textarea id="cust-address" class="form-control" rows="2" placeholder="請輸入收件地址或自取時間"></textarea>
+        </div>
+        
+        <div style="background: #FDF5E6; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; border: 1px dashed #D1C4A9;">
+            <div class="d-flex justify-content-between mb-1"><span>商品總計:</span><span id="final-subtotal">$0</span></div>
+            <div class="d-flex justify-content-between mb-1"><span>運費計算:</span><span id="final-shipping-fee">+$0</span></div>
+            <hr style="margin: 6px 0; border-top: 1px solid #E5D9C3;">
+            <div class="d-flex justify-content-between" style="font-weight:900; color:#ee4d2d; font-size:16px;"><span>最終應付總額:</span><span id="final-grand-total">$0</span></div>
+        </div>
+        
+        <button id="submit-order-btn" class="btn btn-block" style="background: #00B900; color: white; font-weight: bold; padding: 12px; border-radius: 30px; font-size: 15px;"><i class="fab fa-line mr-2"></i>傳送訂單至 LINE 客服</button>
+        <p id="back-to-shipping" style="margin-top: 15px; color: #8B7355; cursor: pointer; font-size: 13px; text-align: center; font-weight: 600; margin-bottom: 0;">返回上一步修改物流</p>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        // 後端 Google Sheets 串接 URL 配置
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwyTJ6HkI-aUWgCsRVa3DtZiwTgPs7g29-ScDxxYHwBge6lYuetwEZVpvXN-D7VQfwC/exec";
+        
+        // 全域核心購物車狀態管理
+        let cart = JSON.parse(localStorage.getItem('anzhi_cart')) || {};
+        let currentOrderSerial = "";
+        
+        // 初始默認物流配置物件
+        let selectedShipping = { mainType: "pickup", name: "門市自取", subName: "面交領取", fee: 0 };
+        let currentPayMethod = "面交取貨付款";
+
+        // 頁面初始化載入
+        $(document).ready(function() {
+            updateUI();
+            
+            // 監聽頁面捲動，控制 Header 數位化收縮效果
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.header').addClass('scrolled');
+                } else {
+                    $('.header').removeClass('scrolled');
+                }
+            });
+        });
+
+        // 商品分類過濾系統邏輯
+        $('.filter-btn').on('click', function() {
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+            
+            const filterValue = $(this).data('filter');
+            
+            if (filterValue === 'all') {
+                $('.mix-target').removeClass('hidden').fadeIn(300);
+            } else {
+                $('.mix-target').each(function() {
+                    if ($(this).data('cat') === filterValue) {
+                        $(this).removeClass('hidden').fadeIn(300);
+                    } else {
+                        $(this).addClass('hidden').fadeOut(300);
+                    }
+                });
+            }
+        });
+
+        // 手機導覽列收合事件
+        $('.navbar-nav .nav-link').on('click', function () {
+            if ($('.navbar-toggler').is(':visible')) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+
+        // 商品詳情彈窗點擊事件
+        $(document).on('click', '.info-btn', function(e) {
+            e.preventDefault();
+            $('#modal-product-title').text($(this).data('title'));
+            $('#modal-product-img').attr('src', $(this).data('img'));
+            $('#modal-product-desc').html($(this).data('desc').replace(/\n/g, '<br>'));
+            $('#modal-product-spec').html($(this).data('spec'));
+            $('#productModal').modal('show');
+        });
+
+        // 購物車核心買多優惠階梯計價計算法
+        function calculateItemSubtotal(name, item) {
+            let qty = item.qty;
+            if (qty <= 0) return 0;
+            let subtotal = 0;
+            if (!item.promoPrice || item.promoPrice === item.price) {
+                subtotal = item.price * qty;
+            } else {
+                for (let i = 1; i <= qty; i++) {
+                    subtotal += (i % 2 === 0) ? item.promoPrice : item.price;
+                }
+            }
+            return subtotal;
+        }
+
+        // 全域介面同步重新渲染 (完美整合頂部購物車徽章)
+        function updateUI() {
+            let totalPrice = 0;
+            let totalQty = 0;
+            
+            $('.product-card').each(function() {
+                let name = $(this).data('name');
+                let qty = cart[name] ? cart[name].qty : 0;
+                $(this).find('.qty').text(qty);
+                if (cart[name]) {
+                    totalPrice += calculateItemSubtotal(name, cart[name]);
+                    totalQty += qty;
+                }
+            });
+            
+            // 同步更新頂部導覽列與底部黑條的數量與價格
+            $('#total-price').text('$' + totalPrice);
+            $('#header-cart-count').text(totalQty);
+            
+            // 觸發頂部購物車徽章放大回彈特效
+            $('#header-cart-count').addClass('badge-pop');
+            setTimeout(function() {
+                $('#header-cart-count').removeClass('badge-pop');
+            }, 200);
+
+            if (totalQty > 0) {
+                $('#cart-bar').fadeIn(200);
+            } else {
+                $('#cart-bar').fadeOut(200);
+            }
+            return totalPrice;
+        }
+
+        // 商品加量監聽
+        $('.plus-btn').on('click', function() {
+            let card = $(this).closest('.product-card');
+            let name = card.data('name');
+            if (!cart[name]) cart[name] = { price: parseInt(card.data('price')), promoPrice: parseInt(card.data('promo-price')), qty: 0 };
+            cart[name].qty++;
+            localStorage.setItem('anzhi_cart', JSON.stringify(cart));
+            updateUI();
+        });
+
+        // 商品減量監聽
+        $('.minus-btn').on('click', function() {
+            let name = $(this).closest('.product-card').data('name');
+            if (cart[name]) {
+                cart[name].qty--;
+                if (cart[name].qty <= 0) {
+                    delete cart[name];
+                }
+                localStorage.setItem('anzhi_cart', JSON.stringify(cart));
+                updateUI();
+            }
+        });
+
+        // 雙重購物車彈窗點擊調用機制
+        $('#open-cart-btn, #header-cart-trigger').on('click', function() {
+            let total = 0;
+            for (let name in cart) { total += cart[name].qty; }
+            if (total === 0) {
+                alert("您的購物車目前是空的，快去挑選好吃的生鮮吧！");
+                return;
+            }
+            renderOrderSummaryOnly();
+            $('#modal-overlay').fadeIn();
+            $('#payment-modal').show();
+        });
+
+        // 獨立渲染步驟一購物窗明細
+        function renderOrderSummaryOnly() {
+            let box = $('#order-summary-box');
+            box.empty();
+            let totalSum = 0;
+            
+            for (let name in cart) {
+                let item = cart[name];
+                let sub = calculateItemSubtotal(name, item);
+                totalSum += sub;
+                
+                let itemHtml = `
+                    <div class="order-summary-swipe-item" data-swipe-name="${name}">
+                        <div class="order-summary-item">
+                            <span class="item-name">${name}</span>
+                            <div class="item-right-zone">
+                                <div class="modal-qty-control">
+                                    <button class="modal-qty-btn modal-dec-action">-</button>
+                                    <span class="modal-qty-val">${item.qty}</span>
+                                    <button class="modal-qty-btn modal-inc-action">+</button>
+                                </div>
+                                <span class="item-subtotal">$${sub}</span>
+                            </div>
+                        </div>
+                        <div class="swipe-delete-btn"><i class="fa-solid fa-trash-can"></i></div>
+                    </div>
+                `;
+                box.append(itemHtml);
+            }
+            $('#modal-total').text('$' + totalSum);
+            
+            // 為手機版滑動刪除注入觸控手勢
+            initSwipeDeleteEvents();
+        }
+
+        // 內部彈窗控制器的加減動作監聽
+        $(document).on('click', '.modal-inc-action', function(e) {
+            e.stopPropagation();
+            let targetName = $(this).closest('.order-summary-swipe-item').data('swipe-name');
+            if (cart[targetName]) {
+                cart[targetName].qty++;
+                localStorage.setItem('anzhi_cart', JSON.stringify(cart));
+                updateUI();
+                renderOrderSummaryOnly();
+            }
+        });
+
+        $(document).on('click', '.modal-dec-action', function(e) {
+            e.stopPropagation();
+            let targetName = $(this).closest('.order-summary-swipe-item').data('swipe-name');
+            if (cart[targetName]) {
+                cart[targetName].qty--;
+                if (cart[targetName].qty <= 0) {
+                    delete cart[targetName];
+                }
+                localStorage.setItem('anzhi_cart', JSON.stringify(cart));
+                updateUI();
+                let total = 0; for(let n in cart){total+=cart[n].qty;}
+                if(total===0) { closeAllModals(); } else { renderOrderSummaryOnly(); }
+            }
+        });
+
+        // 手機端 Touch 滑動刪除核心演算法
+        function initSwipeDeleteEvents() {
+            let startX = 0;
+            $('.order-summary-swipe-item').on('touchstart', function(e) {
+                startX = e.originalEvent.touches[0].clientX;
+            });
+            $('.order-summary-swipe-item').on('touchmove', function(e) {
+                let currentX = e.originalEvent.touches[0].clientX;
+                let diff = startX - currentX;
+                if (diff > 50) {
+                    $(this).css('transform', 'translateX(-70px)');
+                } else if (diff < -20) {
+                    $(this).css('transform', 'translateX(0px)');
+                }
+            });
+        }
+
+        // 第一步前往第二步配送物流區
+        $('#next-to-shipping-btn').on('click', function() {
+            $('#payment-modal').hide();
+            $('#shipping-modal').show();
+        });
+
+        // 物流主要大選項切換事件
+        $('.shipping-option').on('click', function() {
+            $('.shipping-option').removeClass('active');
+            $(this).addClass('active');
+            $(this).find('input[type="radio"]').prop('checked', true);
+            
+            let mType = $(this).data('main-type');
+            if (mType === "pickup") {
+                selectedShipping = { mainType: "pickup", name: "門市自取", subName: "面交領取", fee: 0 };
+                $('#pickup-payment-subzone').show();
+                $('#wire-info-box').hide();
+                // 還原自取付款默認值
+                $('.pickup-pay-btn').removeClass('selected');
+                $('.pickup-pay-btn[data-pay-method="面交取貨付款"]').addClass('selected');
+                currentPayMethod = "面交取貨付款";
+            } else {
+                selectedShipping = { mainType: "delivery", name: "低溫宅配到府", subName: "全程低溫配送", fee: 250 };
+                $('#pickup-payment-subzone').hide();
+                $('#wire-info-box').show();
+                currentPayMethod = "低溫宅配到府(已匯款)";
+            }
+        });
+
+        // 自取附帶的次級付款管道點擊
+        $('.pickup-pay-btn').on('click', function(e) {
+            e.stopPropagation();
+            $('.pickup-pay-btn').removeClass('selected');
+            $(this).addClass('selected');
+            currentPayMethod = $(this).data('pay-method');
+            if(currentPayMethod === "自取已先匯款") {
+                $('#wire-info-box').show();
+            } else {
+                $('#wire-info-box').hide();
+            }
+        });
+
+        // 第二步順暢進到第三步（資料填寫頁）並加入全面的前端防呆驗證
+        $('#next-to-info-btn').on('click', function() {
+            if (currentPayMethod === "低溫宅配到府(已匯款)" || currentPayMethod === "自取已先匯款") {
+                const fiveVal = $('#shipping-back-five').val().trim();
+                if (fiveVal.length !== 5 || isNaN(fiveVal)) {
+                    alert("本項目為對帳出貨，請務必輸入正確的『轉帳後五碼』(5位數字)！");
+                    return;
+                }
+            }
+
+            $('#shipping-modal').hide();
+            $('#info-modal').show();
+
+            if(selectedShipping.mainType === "pickup") {
+                $('#address-label').text("預計自取時間與備註 *");
+                $('#cust-address').attr("placeholder", "例如：週五下午 3 點面交自取");
+            } else {
+                $('#address-label').text("完整收件地址 *");
+                $('#cust-address').attr("placeholder", "請輸入完整縣市、路名及門牌號碼");
+            }
+
+            let prodTotal = 0;
+            for(let n in cart) {
+                prodTotal += calculateItemSubtotal(n, cart[n]);
+            }
+            $('#final-subtotal').text('$' + prodTotal);
+            $('#final-shipping-fee').text('+$' + selectedShipping.fee);
+            $('#final-grand-total').text('$' + (prodTotal + selectedShipping.fee));
+        });
+
+        // 返回導覽回溯功能
+        $('#back-to-shipping').on('click', function() {
+            $('#info-modal').hide();
+            $('#shipping-modal').show();
+        });
+
+        $('#back-to-payment').on('click', function() {
+            $('#shipping-modal').hide();
+            $('#payment-modal').show();
+        });
+
+        function closeAllModals() {
+            $('#modal-overlay').fadeOut();
+            $('#payment-modal').hide();
+            $('#shipping-modal').hide();
+            $('#info-modal').hide();
+        }
+
+        $('.close-modal-trigger, #modal-overlay').on('click', function() {
+            closeAllModals();
+        });
+
+        // 訂單序列流水號生成邏輯
+        function generateOrderSerial() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        
+        // 後面四碼改用隨機數 (1000~9999)
+        const randomSuffix = Math.floor(Math.random() * 9000) + 1000;
+        
+        return `${year}${month}${day}${randomSuffix}`;
+    }
+
+        // 側滑直接點擊垃圾桶刪除按鍵
+        $(document).on('click', '.swipe-delete-btn', function(e) {
+            e.stopPropagation();
+            const parentItem = $(this).closest('.order-summary-swipe-item');
+            const targetName = parentItem.data('swipe-name');
+            if (cart[targetName]) {
+                delete cart[targetName];
+                localStorage.setItem('anzhi_cart', JSON.stringify(cart));
+                parentItem.fadeOut(300, function() {
+                    let total = 0; for(let n in cart){total+=cart[n].qty;}
+                    if(total===0) { closeAllModals(); } else { renderOrderSummaryOnly(); }
+                    updateUI();
+                });
+            }
+        });
+
+        // 送出訂單至後台並喚起 LINE 文字發送群組
+        $('#submit-order-btn').on('click', function(e) {
+            e.preventDefault();
+            const cName = $('#cust-name').val().trim();
+            const cPhone = $('#cust-phone').val().trim();
+            const cAddress = $('#cust-address').val().trim();
+
+            if(!cName || !cPhone || !cAddress) {
+                alert("請填寫完整姓名、聯絡電話與收件地址/備註資訊！");
+                return;
+            }
+
+            let prodItemsStr = "";
+            let prodTotal = 0;
+            let itemsArrayForJson = [];
+
+            for(let name in cart) {
+                let sub = calculateItemSubtotal(name, cart[name]);
+                prodTotal += sub;
+                prodItemsStr += `■ ${name} x ${cart[name].qty} ($${sub})\n`;
+                
+                itemsArrayForJson.push({
+                    name: name,
+                    qty: cart[name].qty,
+                    item_price: cart[name].price,
+                    item_promo_price: cart[name].promoPrice,
+                    subtotal: sub
+                });
+            }
+
+            const grandTotal = prodTotal + selectedShipping.fee;
+            currentOrderSerial = generateOrderSerial();
+            const backFiveVal = (currentPayMethod === "低溫宅配到府(已匯款)" || currentPayMethod === "自取已先匯款") ? $('#shipping-back-five').val().trim() : "";
+
+            // 格式化傳送至 LINE 客服的訊息範本
+            let lineMessage = `【安織生鮮 - 訂單通知】\n`;
+            lineMessage += `單號：${currentOrderSerial}\n`;
+            lineMessage += `付款狀態：${currentPayMethod}\n`;
+            if(backFiveVal) lineMessage += `轉帳後五碼：${backFiveVal}\n`;
+            lineMessage += `配送方式：${selectedShipping.name}\n`;
+            lineMessage += `-------------------------\n`;
+            lineMessage += prodItemsStr;
+            lineMessage += `-------------------------\n`;
+            lineMessage += `商品小計：$${prodTotal}\n`;
+            lineMessage += `運費：+$${selectedShipping.fee}\n`;
+            lineMessage += `應付總額：$${grandTotal}\n\n`;
+            lineMessage += `【訂購人資訊】\n`;
+            lineMessage += `姓名：${cName}\n`;
+            lineMessage += `電話：${cPhone}\n`;
+            lineMessage += `${$('#address-label').text().replace(" *", "")}：${cAddress}`;
+
+            const self = $(this);
+            self.prop('disabled', true).text('正在建立訂單...');
+
+            // 封裝發送到 Google Sheets 後台的資料
+            const sendData = {
+                serial: currentOrderSerial,
+                name: cName,
+                phone: cPhone,
+                email: "", 
+                shipping: selectedShipping.name,
+                address: cAddress,
+                total_price: grandTotal,       
+                payment_method: currentPayMethod,
+                back_five: backFiveVal,
+                items_json: JSON.stringify(itemsArrayForJson), 
+                items_text_backup: prodItemsStr 
+            };
+
+            $.ajax({
+                url: scriptURL,
+                type: "GET",
+                data: sendData,
+                dataType: "jsonp", 
+                timeout: 5000     
+            }).always(function() {
+                localStorage.removeItem('anzhi_cart');
+                cart = {};
+                updateUI();
+                closeAllModals();
+                self.prop('disabled', false).html('<i class="fab fa-line mr-2"></i>傳送訂單至 LINE 客服');
+                
+                const encodedMsg = encodeURIComponent(lineMessage);
+                window.location.href = `https://line.me/R/oaMessage/@022tfybd/?${encodedMsg}`;
+            });
+        });
+    </script>
+</body>
+</html>

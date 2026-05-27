@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="img/logo/totia.png" type="image/png">
+    <title>安織生鮮 - 購買須知</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 基礎色調與字體：與首頁統一，增強細緻質感 */
+        body { 
+            background-color: #FDF9F3; 
+            color: #4A3F3D; 
+            font-family: 'Cairo', 'Microsoft JhengHei', sans-serif; 
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* 頂部呼吸感間歇性公告跑馬燈（跑完一輪自動隱藏，3分鐘後再次循環顯示） */
+        .announcement-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background-color: rgba(93, 64, 55, 0.85);
+            color: #FDF5E6;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 400;
+            overflow: hidden;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 12px rgba(93, 64, 55, 0.15);
+            animation: fadeInOut 180s ease-in-out infinite;
+        }
+
+        .announcement-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 1; visibility: visible; }
+            10% { opacity: 1; visibility: visible; }
+            12% { opacity: 0; visibility: hidden; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        body { padding-top: 38px; }
+
+        /* 線條圖示背景動畫優化 */
+        .bg-animation-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        @keyframes floatEffect {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(4deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        .bg-icon {
+            position: absolute;
+            color: #EADFC9;
+            opacity: 0.25;
+            animation: floatEffect 12s ease-in-out infinite;
+        }
+        .icon-1 { top: 10%; left: 5%; font-size: 100px; animation-delay: 0s; }
+        .icon-2 { top: 30%; right: 10%; font-size: 80px; animation-delay: 2s; }
+        .icon-3 { bottom: 15%; left: 15%; font-size: 120px; animation-delay: 4s; }
+        
+        /* Header 導覽列極致霧面美化 */
+        .header { 
+            background-color: rgba(253, 245, 230, 0.92) !important; 
+            border-bottom: 1px solid rgba(229, 217, 195, 0.7); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1100; 
+            padding: 14px 0;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(93, 64, 55, 0.03);
+        }
+        .navbar { padding: 0; }
+        .navbar-brand img { max-height: 40px; }
+        .navbar-toggler { border: none; padding: 8px; color: #5D4037; }
+        
+        .nav-link { 
+            color: #5D4037 !important; 
+            font-size: 15.5px; 
+            font-weight: 600;
+            padding: 8px 22px !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 22px;
+            right: 22px;
+            height: 2px;
+            background-color: #8B7355;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-item.active .nav-link::after {
+            transform: scaleX(1);
+        }
+        .nav-link:hover, .nav-item.active .nav-link { color: #8B7355 !important; }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: rgba(253, 245, 230, 0.98);
+                border-top: 1px solid #E5D9C3;
+                margin-top: 12px;
+                text-align: center;
+                border-radius: 12px;
+                padding: 10px 0;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+            .nav-link::after { display: none; }
+        }
+        
+        /* 購買須知大卡片配置美化 */
+        .info-section { padding: 60px 0; }
+        .info-card { 
+            background: #ffffff; 
+            border-radius: 18px; 
+            border: 1px solid rgba(229, 217, 195, 0.6); 
+            padding: 38px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.07);
+        }
+        .info-card h3 { 
+            color: #5D4037; 
+            font-weight: 800; 
+            margin-bottom: 26px; 
+            border-left: 5px solid #8B7355; 
+            padding-left: 16px;
+            font-size: 21px;
+            letter-spacing: 0.5px;
+        }
+        .info-card h5 {
+            color: #3E2723;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .info-card p, .info-card li { line-height: 1.85; color: #5A5250; font-size: 15.5px; }
+        .info-card ul { padding-left: 5px; }
+        .info-card ul li { margin-bottom: 8px; }
+        
+        /* 流程步驟微調美化 */
+        .step-box { text-align: center; padding: 15px 10px; }
+        .step-number {
+            background: linear-gradient(135deg, #8B7355 0%, #6E593F 100%);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-block;
+            line-height: 42px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: 17px;
+            box-shadow: 0 4px 10px rgba(139, 115, 85, 0.3);
+        }
+        .step-box p { font-size: 14.5px; color: #555; font-weight: 500; }
+        .highlight { color: #E64A19; background: #FBEBE6; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        
+        hr { border: 0; height: 1px; background: linear-gradient(to right, rgba(229, 217, 195, 0.8), transparent); margin: 22px 0; }
+
+        /* LINE 聯繫按鈕極致質感優化 */
+        .btn-line {
+            background: linear-gradient(135deg, #00C300 0%, #009900 100%);
+            color: white !important;
+            font-weight: 700;
+            padding: 13px 48px;
+            border-radius: 50px;
+            text-decoration: none !important;
+            display: inline-block;
+            margin-top: 15px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 5px 18px rgba(0, 185, 0, 0.25);
+            letter-spacing: 0.5px;
+            font-size: 16px;
+        }
+        .btn-line:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(0, 185, 0, 0.35); 
+        }
+
+        /* 頁面飄浮小物層級細化 */
+        .animation-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+            overflow: hidden;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(8deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        .animate-item {
+            position: absolute;
+            opacity: 0.22;
+            color: #D6C2A1;
+            font-size: 55px;
+            animation: float 11s infinite ease-in-out;
+        }
+
+        /* 地圖導航小按鈕樣式 */
+        .btn-map-nav {
+            display: inline-flex;
+            align-items: center;
+            background-color: #4285F4;
+            color: white !important;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-left: 8px;
+            text-decoration: none !important;
+            box-shadow: 0 2px 5px rgba(66, 133, 244, 0.3);
+            transition: all 0.2s ease;
+            vertical-align: middle;
+        }
+        .btn-map-nav:hover {
+            background-color: #357ae8;
+            transform: scale(1.03);
+            box-shadow: 0 3px 8px rgba(66, 133, 244, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="animation-container">
+        <i class="fa-solid fa-cart-shopping animate-item" style="top: 15%; left: 10%; animation-delay: 0s;"></i>
+        <i class="fa-solid fa-box-open animate-item" style="top: 40%; right: 15%; animation-delay: 2s;"></i>
+        <i class="fa-solid fa-truck-fast animate-item" style="bottom: 20%; left: 20%; animation-delay: 4s;"></i>
+        <i class="fa-solid fa-cart-shopping animate-item" style="bottom: 10%; right: 10%; animation-delay: 1s;"></i>
+    </div>
+
+    <div class="bg-animation-container">
+        <i class="fa-solid fa-cart-shopping bg-icon icon-1"></i>
+        <i class="fa-solid fa-box-open bg-icon icon-2"></i>
+        <i class="fa-solid fa-truck-fast bg-icon icon-3"></i>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="img/logo/totia.png" alt="..." class="mr-1">
+                    <img src="img/logo/logom.png" alt="安織生鮮">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">商品首頁</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="gomi.html">購買須知</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">聯絡客服</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="shopee-banner" style="background: linear-gradient(135deg, #F5EBE0 0%, #E3D5CA 100%); padding: 45px 0; text-align: center; border-bottom: 1px solid #E5D9C3; box-shadow: inset 0 -5px 15px rgba(93,64,55,0.02);">
+        <div class="container">
+           <h2 style="color: #5D4037; font-weight: 900; letter-spacing: 1px;">購買須知</h2>
+           <p style="color: #8B7355; margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">Shopping Guide & Terms</p>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="info-card">
+                        <h3><i class="fa-solid fa-cart-shopping mr-2"></i> 購物流程</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-3 col-6 step-box">
+                                <div class="step-number">1</div>
+                                <p>挑選喜愛商品<br>加入購物車</p>
+                            </div>
+                            <div class="col-md-3 col-6 step-box">
+                                <div class="step-number">2</div>
+                                <p>確認訂單<br>傳送訂單至客服</p>
+                            </div>
+                            <div class="col-md-3 col-6 step-box">
+                                <div class="step-number">3</div>
+                                <p>填寫基本資料<br>完成匯款</p>
+                            </div>
+                            <div class="col-md-3 col-6 step-box">
+                                <div class="step-number">4</div>
+                                <p>準備鮮美物資<br>低溫宅配送達</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row w-100 m-0">
+                    <div class="col-12 p-0">
+                        <div class="info-card" style="border-left: 5px solid #ffffff; background: #FFFBF5; padding: 32px; margin-bottom: 30px;">
+                            <h3 style="color: #5D4037;"><i class="fa-solid fa-truck-fast mr-2"></i> 下單前必看！配送&取貨須知</h3>
+                            <p>謝謝您支持安織生鮮！為了將最極致新鮮的食材送到您手中，請詳閱以下出貨規則：</p>
+                            
+                            <hr>
+                            <h5 style="margin-top: 15px;">🚚 關於訂單（6/1 起陸續出貨）</h5>
+                            <p>5/24-5/31 為開幕預購期。6/1（一）起，未滿 10 公斤之宅配訂單只要完成匯款與小幫手確認後，我們將會依序陸續為您寄出，讓您在家輕鬆等收貨。</p>
+
+                            <h5 style="margin-top: 15px;">📍 關於草屯在地自取（預約制）</h5>
+                            <p>所有生鮮皆為接單後新鮮準備，您下單後需由小幫手提早與老闆拿貨，<strong>無法當天下單當天取貨</strong>，請至少<strong>【提早兩天】</strong>完成匯款並於 LINE 預約！</p>
+                            <ul>
+                                <li><strong>地點一：弘欣汽車自取（週一至週五 13:00-17:00）</strong><a href="https://www.google.com/maps/search/?api=1&query=草屯鎮弘欣汽車" target="_blank" class="btn-map-nav"><i class="fa-solid fa-map-location-dot mr-1"></i>開啟地圖導航</a><br>
+                                    請於 LINE 預約取貨日，待小幫手通知「商品已到店」後再行前往。</li>
+                                
+                                <!--<li><strong>地點二：草屯鎮公所快閃面交（每週五 16:00-16:30）</strong><br>
+                                    請準時抵達指定地點與小幫手碰面取貨。</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h3><i class="fa-solid fa-truck-fast mr-2"></i> 付款與運送</h3>
+                        <ul class="list-unstyled">
+                            <li>● <strong>付款方式：</strong> 面交付現 / 銀行轉帳 / ATM匯款</li>
+                            <li>● <strong>配送說明：</strong> 全程使用 <span class="highlight">低溫冷凍宅配</span> 配送。</li>
+                            <li>● <strong>出貨時間：</strong> 確認款項後 2-3 個工作天內出貨。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h3><i class="fa-solid fa-shield-halved mr-2"></i> 退換貨政策</h3>
+                        <p>因食品衛生考量，除商品本身瑕疵外，恕不接受退換貨。</p>
+                        <ul class="list-unstyled">
+                            <li>● <strong>出貨前，我方將拍照與客戶確認貨品數量，確認後才出貨。</strong></li>
+                            <li>● 貨物寄出後，恕不接受個人因素之退換貨。</li>
+                            <li>● 收貨時請立即開箱檢查，如有瑕疵請於 <span class="highlight">3小時內拍照聯繫客服</span>。</li>
+                            <li>● 生鮮商品依消保法準則，不適用 7 天鑑賞期。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="info-card">
+                        <h3><i class="fa-solid fa-circle-exclamation mr-2"></i> 注意事項</h3>
+                        <p>1. 圖片僅供參考，產品內容以實物及商品規格為主。</p>
+                        <p>2. 天然生鮮產品重量皆有些許誤差（±10%），請理解後再下單。</p>
+                        <p>3. 若遇天候等不可抗力因素影響供貨，客服將主動聯繫。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #FCF8F3; padding: 50px 0; border-top: 1px solid #E5D9C3; text-align: center;">
+        <div class="container">
+            <a href="https://line.me/R/ti/p/@aaa0770f" class="btn-line">
+            <i class="fab fa-line mr-2" style="font-size:20px; vertical-align:middle;"></i> 聯繫 LINE 線上客服
+            </a>
+            <p style="color: #666; margin-top: 25px; font-size: 15px;">客服信箱：xiaozhifood2026@gmail.com</p>
+            <p style="color: #999; font-size: 14px; margin-bottom: 0;">© 2026 安織生鮮 | 質感生鮮購物平台</p>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
