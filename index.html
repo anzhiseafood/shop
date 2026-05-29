@@ -25,59 +25,49 @@
         }
         
         /* 跑馬燈容器 */
-        /* 跑馬燈容器 - 修改重點 */
-        /* 跑馬燈容器 - 固定且半透明 */
-       /* 跑馬燈容器 - 修改動畫循環邏輯 */
-.announcement-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    background-color: rgba(93, 64, 55, 0.8);
-    color: #FDF5E6;
-    padding: 6px 0;
-    font-size: 15px;
-    font-weight: 300;
-    overflow: hidden;
-    white-space: nowrap;
-    backdrop-filter: blur(3px);
-    
-    /* 移除 infinite，讓動畫執行一次後停止在最後狀態 */
-    /* 總時長 180s (3分鐘)，其中跑動佔用時間較短 */
-    animation: fadeInOut 180s ease-in-out; 
-    animation-iteration-count: infinite; /* 保留無限循環以達到自動觸發的效果 */
-}
+        .announcement-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background-color: rgba(93, 64, 55, 0.8);
+            color: #FDF5E6;
+            padding: 6px 0;
+            font-size: 15px;
+            font-weight: 300;
+            overflow: hidden;
+            white-space: nowrap;
+            backdrop-filter: blur(3px);
+            animation: fadeInOut 180s ease-in-out; 
+            animation-iteration-count: infinite; 
+        }
 
-/* 內容跑動動畫 - 讓它在 15 秒內跑完並停止 */
-.announcement-content {
-    display: inline-block;
-    padding-left: 100%;
-    /* 此動畫設定為只跑一次，跑完即消失 */
-    animation: marquee 30s linear;
-}
+        .announcement-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 30s linear;
+        }
 
-/* 顯示與消失的時序控制 */
-@keyframes fadeInOut {
-    0% { opacity: 1; visibility: visible; }    /* 剛開始出現 */
-    10% { opacity: 1; visibility: visible; }   /* 顯示期間 */
-    30% { opacity: 0; visibility: hidden; }    /* 跑完文字後，12% 的時間點準時隱藏 */
-    20% { opacity: 0; visibility: hidden; }   /* 等待剩下的 88% 時間 */
-}
+        @keyframes fadeInOut {
+            0% { opacity: 1; visibility: visible; }    
+            10% { opacity: 1; visibility: visible; }   
+            30% { opacity: 0; visibility: hidden; }    
+            20% { opacity: 0; visibility: hidden; }   
+        }
 
-@keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-}
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
 
-body { padding-top: 35px; }
+        body { padding-top: 35px; }
 
-        /* 滑鼠懸停時暫停動畫 (增加互動友善度) */
         .announcement-bar:hover .announcement-content {
             animation-play-state: paused;
         }
 
-        /* 彩色線條魚蝦背景動畫 (輕量化、不阻擋點擊) */
+        /* 彩色線條魚蝦背景動畫 */
         .bg-animation-container {
             position: fixed;
             top: 0; left: 0;
@@ -93,17 +83,16 @@ body { padding-top: 35px; }
         }
         .bg-fish {
             position: absolute;
-            color: transparent; /* 隱藏原本填色 */
-            opacity: 0.18; /* 調整透明度確保不喧賓奪主 */
+            color: transparent; 
+            opacity: 0.18; 
             animation: swimRight linear infinite;
         }
-        /* 運用 text-stroke 實現彩色線條風格 */
         .bg-fish.f1 { top: 12%; -webkit-text-stroke: 2px #ee4d2d; animation-duration: 28s; animation-delay: -5s; font-size: 70px; }
         .bg-fish.f2 { top: 38%; -webkit-text-stroke: 2px #D4AF37; animation-duration: 35s; animation-delay: -18s; font-size: 85px; }
         .bg-fish.f3 { top: 65%; -webkit-text-stroke: 2px #8B7355; animation-duration: 24s; animation-delay: -2s; font-size: 60px; }
         .bg-fish.f4 { top: 82%; -webkit-text-stroke: 2px #00B900; animation-duration: 40s; animation-delay: -25s; font-size: 95px; }
 
-        /* 智慧縮放導覽列：調整 z-index 確保在彈窗之下 (Bootstrap modal 為 1050) */
+        /* 智慧縮放導覽列 */
         .header { 
             background-color: rgba(253, 245, 230, 0.95) !important; 
             border-bottom: 1px solid #E5D9C3; 
@@ -168,10 +157,8 @@ body { padding-top: 35px; }
             border: 2px solid #FDF5E6;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        /* 購物車數量變動回彈動畫 */
         .badge-pop { transform: scale(1.3); }
 
-        /* 手機版下拉選單與佈局優化 */
         @media (max-width: 991px) {
             .navbar-collapse {
                 background-color: #FDF5E6 !important;
@@ -184,7 +171,7 @@ body { padding-top: 35px; }
             .header-cart-btn { margin: 10px auto 5px; }
         }
         
-        /* 商品分類過濾系統按鈕樣式 */
+        /* 商品分類過濾系統 */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -210,7 +197,7 @@ body { padding-top: 35px; }
             box-shadow: 0 4px 10px rgba(139, 115, 85, 0.2);
         }
 
-        /* 統一商品卡片視覺：高度同步，絲滑過渡 */
+        /* 商品卡片視覺 */
         .product-card { 
             background: #ffffff; 
             border-radius: 14px; 
@@ -221,7 +208,7 @@ body { padding-top: 35px; }
             box-shadow: 0 4px 12px rgba(93,64,55,0.03); 
             display: flex;
             flex-direction: column;
-            height: calc(100% - 30px); /* 確保同列卡片高度等高 */
+            height: calc(100% - 30px); 
             opacity: 1;
             transform: scale(1);
         }
@@ -258,25 +245,51 @@ body { padding-top: 35px; }
         .product-price { color: #ee4d2d; font-size: 20px; font-weight: 800; font-family: Arial, sans-serif; }
         .promo-badge { background-color: #ffebe7; color: #ee4d2d; font-size: 11px; padding: 3px 10px; border: 1px solid #ffebe7; border-radius: 4px; display: inline-block; margin-bottom: 12px; font-weight: 600; width: fit-content; }
         
-        /* 精緻主打/限定特殊外框線 */
         .card-hot-delivery { border: 2px solid #ee4d2d !important; }
         .card-hot-season { border: 2px solid #D4AF37 !important; }
 
-        /* 詳細介紹按鈕優化 */
-        .info-btn {
-            background-color: #F5EBE0;
-            color: #5D4037 !important;
+        /* 🔥新增：雙動作按鈕容器 (商品介紹 + 料理食譜) */
+        .action-btn-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+        .info-btn, .recipe-btn {
+            flex: 1;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            padding: 6px 14px;
-            margin-bottom: 12px;
+            padding: 8px 4px;
             border: none;
             transition: 0.3s;
-            width: 100%;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
-        .info-btn:hover { background-color: #8B7355; color: white !important; }
+        .info-btn { 
+            background-color: #F5EBE0; 
+            color: #5D4037 !important; 
+        }
+        .info-btn:hover { 
+            background-color: #8B7355; 
+            color: white !important; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(139, 115, 85, 0.2);
+        }
+        .recipe-btn { 
+            background-color: #FFF0E6; 
+            color: #ee4d2d !important; 
+        }
+        .recipe-btn:hover { 
+            background-color: #ee4d2d; 
+            color: white !important; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(238, 77, 45, 0.2);
+        }
 
         .footer-cta-box {
             background: #FCF8F3; 
@@ -305,7 +318,7 @@ body { padding-top: 35px; }
         .footer-email { color: #666; font-size: 16px; margin-bottom: 8px; font-weight: 600; }
         .footer-copyright { color: #999; font-size: 14px; }
 
-        /* 商品詳情彈窗專用樣式 */
+        /* 商品詳情與食譜彈窗樣式 */
         .modal-content { border-radius: 20px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
         .modal-header { border-bottom: none; padding: 20px 20px 5px; }
         .modal-body { padding: 0 25px 25px; }
@@ -315,7 +328,6 @@ body { padding-top: 35px; }
         .modal-desc-text { font-size: 14px; color: #555; line-height: 1.7; }
         .spec-list { font-size: 14px; color: #666; padding-left: 20px; }
         
-        /* 手機端返回賣場大按鈕 */
         .modal-return-btn {
             background-color: #8B7355;
             color: white !important;
@@ -335,7 +347,7 @@ body { padding-top: 35px; }
             box-shadow: 0 6px 15px rgba(93, 64, 55, 0.3);
         }
 
-        /* 結帳流程進度條 (Progress Tracker) */
+        /* 結帳流程進度條 */
         .checkout-progress {
             display: flex;
             justify-content: space-between;
@@ -356,40 +368,18 @@ body { padding-top: 35px; }
             position: relative;
             z-index: 2;
         }
-        .progress-step.active {
-            color: #5D4037;
-        }
-        .progress-step.active .step-num {
-            background: #5D4037;
-            color: #FFF;
-        }
-        .progress-step.complete {
-            color: #8B7355;
-        }
-        .progress-step.complete .step-num {
-            background: #8B7355;
-            color: #FFF;
-        }
+        .progress-step.active { color: #5D4037; }
+        .progress-step.active .step-num { background: #5D4037; color: #FFF; }
+        .progress-step.complete { color: #8B7355; }
+        .progress-step.complete .step-num { background: #8B7355; color: #FFF; }
         .step-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #D9CBBF;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #D9CBBF; color: white;
+            display: flex; align-items: center; justify-content: center; font-size: 11px;
         }
         .progress-line {
-            position: absolute;
-            top: 50%;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: #E5D9C3;
-            z-index: 1;
-            transform: translateY(-50%);
+            position: absolute; top: 50%; left: 15%; right: 15%; height: 2px;
+            background: #E5D9C3; z-index: 1; transform: translateY(-50%);
         }
 
         /* 購物車彈窗基礎與遮罩 */
@@ -398,201 +388,49 @@ body { padding-top: 35px; }
         #info-modal { z-index: 2002; }
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(93, 64, 55, 0.4); backdrop-filter: blur(4px); z-index: 1999; }
 
-        /* 購物車明細美化與滑動刪除樣式 */
-        .order-summary-container {
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #E5D9C3;
-        }
-        .order-summary-swipe-item {
-            position: relative;
-            background: #fff;
-            transition: transform 0.2s ease-out;
-            user-select: none;
-            touch-action: pan-y;
-            border-bottom: 1px dashed #eee;
-        }
+        /* 購物車明細美化 */
+        .order-summary-container { overflow: hidden; border-radius: 12px; margin-bottom: 20px; border: 1px solid #E5D9C3; }
+        .order-summary-swipe-item { position: relative; background: #fff; transition: transform 0.2s ease-out; user-select: none; touch-action: pan-y; border-bottom: 1px dashed #eee; }
         .order-summary-swipe-item:last-child { border-bottom: none; }
-        .order-summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 15px;
-            font-size: 15px;
-            position: relative;
-            z-index: 2;
-            background: #fff;
-        }
-        .order-summary-item .item-name {
-            color: #333;
-            font-weight: 600;
-            max-width: 48%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .order-summary-item .item-right-zone {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .order-summary-item .item-subtotal {
-            color: #ee4d2d;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-            min-width: 55px;
-            text-align: right;
-        }
-        /* 彈窗內購物車加減控制器美化 */
-        .modal-qty-control {
-            display: flex;
-            align-items: center;
-            border: 1px solid #E5D9C3;
-            border-radius: 20px;
-            padding: 2px 8px;
-            background: #FFFDF9;
-        }
-        .modal-qty-btn {
-            background: none;
-            border: none;
-            color: #8B7355;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 0 6px;
-            cursor: pointer;
-            outline: none;
-        }
+        .order-summary-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 15px; font-size: 15px; position: relative; z-index: 2; background: #fff; }
+        .order-summary-item .item-name { color: #333; font-weight: 600; max-width: 48%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .order-summary-item .item-right-zone { display: flex; align-items: center; gap: 12px; }
+        .order-summary-item .item-subtotal { color: #ee4d2d; font-weight: bold; font-family: Arial, sans-serif; min-width: 55px; text-align: right; }
+        
+        .modal-qty-control { display: flex; align-items: center; border: 1px solid #E5D9C3; border-radius: 20px; padding: 2px 8px; background: #FFFDF9; }
+        .modal-qty-btn { background: none; border: none; color: #8B7355; font-weight: bold; font-size: 14px; padding: 0 6px; cursor: pointer; outline: none; }
         .modal-qty-btn:focus { outline: none; }
-        .modal-qty-val {
-            font-size: 14px;
-            font-weight: 600;
-            color: #5D4037;
-            min-width: 22px;
-            text-align: center;
-        }
-        .swipe-delete-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 70px;
-            height: 100%;
-            background: #ee4d2d;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-            z-index: 1;
-            cursor: pointer;
-        }
+        .modal-qty-val { font-size: 14px; font-weight: 600; color: #5D4037; min-width: 22px; text-align: center; }
+        .swipe-delete-btn { position: absolute; top: 0; right: 0; width: 70px; height: 100%; background: #ee4d2d; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 14px; z-index: 1; cursor: pointer; }
 
-        /* 物流與付款選擇區塊 */
-        .shipping-option {
-            border: 2px solid #E5D9C3;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
+        /* 物流與付款選擇 */
+        .shipping-option { border: 2px solid #E5D9C3; border-radius: 12px; padding: 15px; margin-bottom: 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; justify-content: space-between; align-items: center; position: relative; }
         .shipping-option:hover { border-color: #8B7355; background: #FFF9F0; }
         .shipping-option.active { border-color: #5D4037; background: #FFFDF9; box-shadow: 0 4px 12px rgba(93, 64, 55, 0.1); }
         .shipping-option input[type="radio"] { display: none; }
         
-        .radio-circle {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #D1C4A9;
-            border-radius: 50%;
-            margin-right: 12px;
-            display: inline-block;
-            vertical-align: middle;
-            position: relative;
-        }
+        .radio-circle { width: 20px; height: 20px; border: 2px solid #D1C4A9; border-radius: 50%; margin-right: 12px; display: inline-block; vertical-align: middle; position: relative; }
         .active .radio-circle { border-color: #5D4037; }
-        .active .radio-circle::after {
-            content: "";
-            width: 10px;
-            height: 10px;
-            background: #5D4037;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        .active .radio-circle::after { content: ""; width: 10px; height: 10px; background: #5D4037; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .shipping-title { font-weight: bold; color: #5D4037; margin: 0; }
         .shipping-fee { color: #ee4d2d; font-weight: bold; }
 
-        /* 自取專用付款細項區塊樣式 */
-        .pickup-payment-box {
-            background-color: #FFFDF9;
-            border: 1px solid #E5D9C3;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-        .pickup-pay-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #8B7355;
-            margin-bottom: 10px;
-        }
-        .pickup-pay-options {
-            display: flex;
-            gap: 10px;
-        }
-        .pickup-pay-btn {
-            flex: 1;
-            border: 1.5px solid #E5D9C3;
-            background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #5D4037;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .pickup-pay-btn.selected {
-            border-color: #5D4037;
-            background-color: #F5EBE0;
-        }
+        .pickup-payment-box { background-color: #FFFDF9; border: 1px solid #E5D9C3; border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+        .pickup-pay-title { font-size: 13px; font-weight: bold; color: #8B7355; margin-bottom: 10px; }
+        .pickup-pay-options { display: flex; gap: 10px; }
+        .pickup-pay-btn { flex: 1; border: 1.5px solid #E5D9C3; background: #fff; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; color: #5D4037; text-align: center; cursor: pointer; transition: 0.2s; }
+        .pickup-pay-btn.selected { border-color: #5D4037; background-color: #F5EBE0; }
 
-        /* 輸入框聚焦效果 */
         .form-control { border: 1px solid #E5D9C3; border-radius: 8px; padding: 10px; font-size: 14px; }
-        .form-control:focus {
-            border-color: #8B7355 !important;
-            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.15);
-            outline: none;
-        }
-        .form-group label {
-            font-size: 14px;
-            font-weight: bold;
-            color: #5D4037;
-            margin-bottom: 6px;
-        }
-        /* 拇指易觸及拇指化加減控制器 */
+        .form-control:focus { border-color: #8B7355 !important; box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.15); outline: none; }
+        .form-group label { font-size: 14px; font-weight: bold; color: #5D4037; margin-bottom: 6px; }
+        
         .quantity-control { display: flex; align-items: center; justify-content: flex-end; }
         .quantity-control .qty { font-weight: bold; min-width: 24px; text-align: center; font-size: 15px; color: #5D4037; }
         .quantity-control .btn { border-radius: 50%; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-color: #CBD5E1; color: #475569; }
         .quantity-control .btn:hover { background: #5D4037; color: #FFF; border-color: #5D4037; }
 
-        /* 舊版大購物車條精美化：調整 z-index 確保在彈窗之下 */
-        #cart-bar {
-            box-shadow: 0 -4px 20px rgba(93, 64, 55, 0.15);
-            border-top: 1px solid #E5D9C3;
-            background: rgba(93, 64, 55, 0.96) !important;
-            backdrop-filter: blur(8px);
-            z-index: 1030;
-        }
+        #cart-bar { box-shadow: 0 -4px 20px rgba(93, 64, 55, 0.15); border-top: 1px solid #E5D9C3; background: rgba(93, 64, 55, 0.96) !important; backdrop-filter: blur(8px); z-index: 1030; }
     </style>
 </head>
 
@@ -659,7 +497,7 @@ body { padding-top: 35px; }
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-12 mix-target" data-cat="seafood">
-                    <div class="product-card card-hot-delivery" data-category="seafood" data-name="【超值組】台南無刺虱目魚肚 5 盒入" data-price="550" data-promo-price="550">
+                    <div class="product-card card-hot-delivery" data-category="seafood" data-name="【超值組】台南無刺虱目魚肚 5 盒入" data-price="600" data-promo-price="600">
                         <div style="background: #ee4d2d; color: #fff; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【超值組】</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-5">
@@ -667,10 +505,10 @@ body { padding-top: 35px; }
                             </div>
                             <div class="col-7">
                                 <div class="product-info">
-                                    <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">台南無刺虱目魚肚 - 5 盒入</h5>
-                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">平均一盒只要 $110！</p>
+                                    <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">台南無刺虱目魚肚 - 5 包入</h5>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">平均一包只要 $120！</p>
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <span class="product-price">$550</span>
+                                        <span class="product-price">$600</span>
                                         <div class="quantity-control">
                                             <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                             <span class="qty mx-2">0</span>
@@ -690,7 +528,7 @@ body { padding-top: 35px; }
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-12 mix-target" data-cat="dessert">
-                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新口味!榴槤千層蛋糕🍰" data-price="290" data-promo-price="290">
+                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新口味!榴槤千層蛋糕🍰" data-price="320" data-promo-price="280">
                         <div style="background: #F4D068; color: #5D4037; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【當季限定】</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-5">
@@ -699,9 +537,9 @@ body { padding-top: 35px; }
                             <div class="col-7">
                                 <div class="product-info">
                                     <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">🍰榴槤千層蛋糕</h5>
-                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">400g/顆 一顆限量290！</p>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">現在最夯的蛋糕！兩顆600</p>
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <span class="product-price">$290</span>
+                                        <span class="product-price">$320</span>
                                         <div class="quantity-control">
                                             <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                             <span class="qty mx-2">0</span>
@@ -714,7 +552,7 @@ body { padding-top: 35px; }
                     </div>
                 </div>
                 <div class="col-lg-6 col-12 mix-target" data-cat="dessert">
-                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新上架!泰國金枕頭榴槤肉🍰" data-price="199" data-promo-price="199">
+                    <div class="product-card card-hot-season" data-category="dessert" data-name="🔔最新上架!泰國金枕頭榴槤肉🍰" data-price="220" data-promo-price="220">
                         <div style="background: #F4D068; color: #5D4037; text-align: center; padding: 6px; font-weight: bold; letter-spacing: 1px;">🔥【當季限定】</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-5">
@@ -723,9 +561,9 @@ body { padding-top: 35px; }
                             <div class="col-7">
                                 <div class="product-info">
                                     <h5 style="font-weight: bold; color: #1a1a1a; font-size: 16px;">金枕頭榴槤肉</h5>
-                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">300g/盒 一盒199！</p>
+                                    <p style="font-size: 13px; color: #777; margin-bottom: 8px;">300g/盒 一盒220！</p>
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <span class="product-price">$199</span>
+                                        <span class="product-price">$220</span>
                                         <div class="quantity-control">
                                             <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                             <span class="qty mx-2">0</span>
@@ -746,20 +584,28 @@ body { padding-top: 35px; }
             <div class="row">
                 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="現撈午仔魚" data-price="169" data-promo-price="141">
+                    <div class="product-card" data-category="seafood" data-name="現撈午仔魚" data-price="190" data-promo-price="170">
                         <img src="img/food/01.jpeg" class="w-100" alt="午仔魚">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【老饕首選】產地直供現撈午仔魚" 
-                                data-desc="下班想快上菜，卻怕煎魚噴油、細刺卡到小孩？別再委屈家人吃乾柴的冷凍魚片了。我們嚴選產地現撈午仔魚，油脂如奶油般滑嫩，重點是幾乎無細刺。簡單乾煎到表皮金黃，即可享受星級餐廳的鮮甜。產地直送，這批油脂最肥美，老客戶通常一買就是六條起跳!"
-                                data-spec="<li>重量：300-400g/尾</li><li>包裝：真空獨立包裝</li><li>特色：三去外加清血路!</li>"
-                                data-img="img/food/01.jpeg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【老饕首選】產地直供現撈午仔魚" 
+                                    data-desc="下班想快上菜，卻怕煎魚噴油、細刺卡到小孩？別再委屈家人吃乾柴的冷凍魚片了。我們嚴選產地現撈午仔魚，油脂如奶油般滑嫩，重點是幾乎無細刺。簡單乾煎到表皮金黃，即可享受星級餐廳的鮮甜。產地直送，這批油脂最肥美，老客戶通常一買就是六條起跳!"
+                                    data-spec="<li>重量：300-400g/尾</li><li>包裝：真空獨立包裝</li><li>特色：三去外加清血路!</li>"
+                                    data-img="img/food/01.jpeg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                            <button type="button" class="btn recipe-btn" 
+                                    data-title="【主廚推薦料理】經典香煎午仔魚" 
+                                    data-desc="午仔魚最棒的料理方式就是乾煎或清蒸。外酥內嫩的『經典香煎午仔魚』，是最零失敗且最受歡迎的作法！<br><br><b>🛒 食材準備</b><br>• 午仔魚：1 尾（從真空包裝取出一尾）<br>• 鹽巴：適量（約半茶匙）<br>• 米酒：1 小匙（去腥用，可省略）<br>• 食用油：2 大匙<br>• 薑片：2-3 片<br>• 配料：檸檬角 1 瓣、胡椒鹽適量<br><br><b>👨‍🍳 步驟</b><br>1. <b>退冰：</b>含包裝泡水 15-20 分鐘。<br>2. <b>擦乾：</b>洗淨血水，用廚紙將內外徹底擦乾防爆油。<br>3. <b>醃製：</b>魚身斜劃 2-3 刀，抹薄鹽與米酒靜置 10 分鐘，下鍋前再次擦乾。<br>4. <b>熱鍋：</b>中火熱鍋下油，放薑片爆香。<br>5. <b>慢煎：</b>轉中小火放魚，前 3 分鐘勿移動。<br>6. <b>翻面：</b>底部金黃且能滑動時翻面。<br>7. <b>起鍋：</b>再煎 3-4 分鐘，筷子能穿透厚處即可。<br>8. <b>上桌：</b>擠檸檬汁、沾胡椒鹽享用。"
+                                    data-img="img/food2/1-1.jpg">
+                                <i class="fa-solid fa-utensils"></i> 食譜
                             </button>
+                            </div>
                             <div class="product-title">產地直供-現撈午仔魚</div>
-                            <div class="promo-badge">兩條超值組 $310</div>
+                            <div class="promo-badge">兩條超值組 $360</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$169</span>
+                                <span class="product-price">$190</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -771,20 +617,28 @@ body { padding-top: 35px; }
                 </div>
 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="紅太陽大白蝦" data-price="259" data-promo-price="201">
+                    <div class="product-card" data-category="seafood" data-name="紅太陽大白蝦" data-price="270" data-promo-price="270">
                         <img src="img/food/02.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【霸氣海味】紅太陽頂級巨大白蝦" 
-                                data-desc="★ 聚餐霸氣首選！每盒 850g 重磅登場，每一口都是滿滿海味。聚餐想露一手，卻擔心買到軟爛沒味道的冷凍蝦？真正的霸氣食材，光看外型就贏一半！規格挑戰市面最大，肉質紮實 Q 彈。無論鹽烤或熱炒，爽度都是頂級。巨大規格捕獲量不穩，現貨售完即止。"
-                                data-spec="<li>重量：850g/盒 (約18尾)</li><li>保存：急速冷凍鎖鮮</li>"
-                                data-img="img/food/02.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【霸氣海味】紅太陽頂級巨大白蝦" 
+                                    data-desc="★ 聚餐霸氣首選！每盒 850g 重磅登場，每一口都是滿滿海味。聚餐想露一手，卻擔心買到軟爛沒味道的冷凍蝦？真正的霸氣食材，光看外型就贏一半！規格挑戰市面最大，肉質紮實 Q 彈。無論鹽烤或熱炒，爽度都是頂級。巨大規格捕獲量不穩，現貨售完即止。"
+                                    data-spec="<li>重量：850g/盒 (約18尾)</li><li>保存：急速冷凍鎖鮮</li>"
+                                    data-img="img/food/02.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                            <button type="button" class="btn recipe-btn" 
+                                    data-title="【主廚推薦料理】蒜香黃油香草煎巨蝦" 
+                                    data-desc="透過簡單煎炸與濃郁醬汁增強風味。開背設計更易入味，呈現專業餐廳風格！<br><br><b>🛒 食材清單</b><br>• 巨蝦：6-8 隻（解凍/去殼留尾/開背去腸泥）<br>• 無鹽奶油：4 湯匙<br>• 橄欖油：1 湯匙<br>• 蒜末：3-4 瓣（切碎）<br>• 新鮮歐芹：2 湯匙（切碎）<br>• 百里香：3-4 枝<br>• 迷迭香：1 小枝<br>• 檸檬：1 顆<br>• 鹽與黑胡椒：適量<br>• 白酒：2 湯匙（可選）<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>準備：</b>解凍並徹底擦乾，雙面撒鹽與黑胡椒調味。<br>2. <b>煎蝦：</b>中高火熱鍋下油與 1 匙奶油，每面煎 2-3 分鐘至微焦撈起。<br>3. <b>醬汁：</b>轉中火下餘下奶油、蒜末、百里香炒香，加白酒煮 1 分鐘。<br>4. <b>結合：</b>加歐芹碎、檸檬汁、少許鹽後關火，放回巨蝦均勻裹上醬汁。<br>5. <b>上桌：</b>盛盤以烤檸檬片、迷迭香裝飾，搭配麵包或米飯享用！" 
+                                    data-img="img/food2/1-2.jpg">
+                                <i class="fa-solid fa-utensils"></i> 食譜
                             </button>
+                            </div>
                             <div class="product-title">紅太陽頂級巨大白蝦</div>
-                            <div class="promo-badge">20/30 兩盒460!</div>
+                            <div class="promo-badge">20/30 一盒270!</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$259</span>
+                                <span class="product-price">$270</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -796,20 +650,28 @@ body { padding-top: 35px; }
                 </div>
 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="大西洋鮭魚" data-price="180" data-promo-price="150">
+                    <div class="product-card" data-category="seafood" data-name="大西洋鮭魚" data-price="190" data-promo-price="170">
                         <img src="img/food/03.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【厚切保證】大西洋鮭魚 (超大片)" 
-                                data-desc="大西洋鮭魚，超厚切!只給您實實在在的厚度，拒絕包冰。來自低溫海域，富含 Omega-3 油脂。真空包裝保證不包冰，簡單抹鹽乾煎，即可享受外酥內嫩的極致奢華。"
-                                data-spec="<li>重量：400g±5% (實重)</li><li>產地：大西洋低溫海域</li>"
-                                data-img="img/food/03.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【厚切保證】大西洋鮭魚 (超大片)" 
+                                    data-desc="大西洋鮭魚，超厚切!只給您實實在在的厚度，拒絕包冰。來自低溫海域，富含 Omega-3 油脂。真空包裝保證不包冰，簡單抹鹽乾煎，即可享受外酥內嫩的極致奢華。"
+                                    data-spec="<li>重量：400g±5% (實重)</li><li>產地：大西洋低溫海域</li>"
+                                    data-img="img/food/03.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【主廚推薦料理】嫩煎焦香鮭魚排" 
+                                        data-desc="展現鮭魚本身豐富油脂與鮮甜的最佳做法，外酥內嫩、脂香四溢！<br><br><b>🛒 食材清單</b><br>• 大西洋鮭魚排：1 片（自真空包裝取出）<br>• 鹽巴：適量<br>• 黑胡椒：適量<br>• 食用油：1 小匙（鮭魚富含油脂，油量不需多）<br>• 檸檬：半顆<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>退冰：</b>不拆封泡常溫水 15 分鐘至完全解凍。<br>2. <b>擦乾：</b>洗淨後用廚紙徹底吸乾表面水分（魚皮酥脆的關鍵）。<br>3. <b>調味：</b>雙面均勻撒上適量鹽巴與黑胡椒，靜置 5 分鐘。<br>4. <b>下鍋：</b>熱鍋下薄油，中小火下鍋，單面慢煎 3 分鐘切勿移動。<br>5. <b>翻面：</b>邊緣變色、底部呈金黃色後翻面，再煎 2-3 分鐘至熟透。<br>6. <b>上桌：</b>起鍋盛盤，依喜好擠上新鮮檸檬汁即可享用！" 
+                                        data-img="img/food2/1-3.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title">超大片鮭魚</div>
-                            <div class="promo-badge">兩片優惠 $330 售完為止</div>
+                            <div class="promo-badge">兩片優惠 $360 售完為止</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$180</span>
+                                <span class="product-price">$190</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -821,18 +683,191 @@ body { padding-top: 35px; }
                 </div>
 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="肉鯽仔" data-price="130" data-promo-price="130">
+                    <div class="product-card" data-category="seafood" data-name="肉鯽仔" data-price="140" data-promo-price="140">
                         <img src="img/food/04.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【家常必備】鮮嫩肉魚 (6 入組)" 
-                                data-desc="超划算家常首選！一包就能搞定全家人的主餐。晚餐不知道煮什麼？這款「白飯殺手」讓小孩不再挑食。一袋 6 入 CP 值爆表！裹薄粉煎到金黃焦香，魚皮酥脆、肉質細緻，是記憶中最懷念的台式家常味。"
-                                data-spec="<li>規格：6入/袋</li><li>特色：肉質細緻下飯</li>"
-                                data-img="img/food/04.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【家常必備】鮮嫩肉魚 (6 入組)" 
+                                    data-desc="超划算家常首選！一包就能搞定全家人的主餐。晚餐不知道煮什麼？這款「白飯殺手」讓小孩不再挑食。一袋 6 入 CP 值爆表！裹薄粉煎到金黃焦香，魚皮酥脆、肉質細緻，是記憶中最懷念的台式家常味。"
+                                    data-spec="<li>規格：6入/袋</li><li>特色：肉質細緻下飯</li>"
+                                    data-img="img/food/04.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【家常推薦料理】香煎金黃肉魚" 
+                                        data-desc="肉質細嫩鮮美，用最樸實的乾煎方式，就能勾勒出脂香滿溢的懷舊美味！<br><br><b>🛒 食材清單</b><br>• 肉魚：3-4 隻（自真空包裝取出）<br>• 鹽巴：適量<br>• 白胡椒粉：適量<br>• 食用油：2 大匙<br>• 薑片：3 片<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>退冰：</b>不拆封泡常溫水 10-15 分鐘至完全解凍。<br>2. <b>擦乾：</b>洗淨後務必用廚紙徹底吸乾內外水分（防爆油關鍵）。<br>3. <b>醃製：</b>魚身雙面斜劃一刀，抹上薄鹽靜置 5 分鐘。<br>4. <b>熱鍋：</b>中火熱鍋下油，放入薑片爆香。<br>5. <b>慢煎：</b>轉中小火下魚，煎 3 分鐘至魚皮金黃定型再翻面。<br>6. <b>起鍋：</b>另一面再煎 2-3 分鐘，兩面酥脆熟透即可。<br>7. <b>上桌：</b>盛盤後撒上白胡椒粉，外酥內嫩超級下飯！" 
+                                        data-img="img/food2/1-4.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title">白飯殺手-肉鯽仔(6入)</div>
                             <div class="promo-badge">一包 6 入 </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$140</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="石狩蝦仁" data-price="270" data-promo-price="270">
+                        <img src="img/food/05.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【懶人救星】石狩蝦仁 (已開背去腸泥)" 
+                                    data-desc="石狩蝦仁「拆封即煮」，完全不髒手！想煮蝦仁炒飯，想到挑腸泥就心累？專業開背徹底去除腸泥，顆顆晶瑩飽滿。760g 誠意大份量，不論炒蛋或鳳梨蝦球，5 分鐘輕鬆上菜，解救你的廚房忙碌時光。"
+                                    data-spec="<li>重量：760g/包</li><li>處理：已開背、去腸泥</li>"
+                                    data-img="img/food/05.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                    data-title="【熱銷家常菜】經典綠蔥滑蛋蝦仁" 
+                                    data-desc="大顆割背蝦仁鮮甜爽彈，搭配滑嫩色澤誘人的雞蛋，入口即化，家常必備經典！<br><br><b>🛒 食材清單</b><br>• 割背蝦仁：半包（包裝取出要吃的量）<br>• 雞蛋：3 顆<br>• 蔥花：適量<br>• 太白粉水：1 小匙<br>• 調味：鹽巴、白胡椒粉、米酒各少許<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>退冰：</b>蝦仁泡常溫水 10 分鐘解凍，洗淨並徹底擦乾。<br>2. <b>醃製：</b>加少許鹽、米酒、太白粉抓勻醃製 5 分鐘。<br>3. <b>過油：</b>熱鍋下油，下蝦仁大火快炒至 8 分熟（變紅捲曲）撈出。<br>4. <b>拌液：</b>雞蛋打散，加入蔥花、少許鹽、太白粉水與蝦仁拌勻。<br>5. <b>滑蛋：</b>原鍋補油燒熱，倒入蛋液，用鍋鏟由外向內輕推。<br>6. <b>上桌：</b>蛋液呈 7 分熟微凝固滑嫩狀立即關火盛盤，鮮美香滑！" 
+                                    data-img="img/food2/1-5.jpg">
+                                <i class="fa-solid fa-utensils"></i> 食譜
+                            </button>
+                            </div>
+                            <div class="product-title">石狩蝦仁(鮮凍開背)</div>
+                            <div class="promo-badge">760g 大份量 $270</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$270</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="台灣松阪豬" data-price="230" data-promo-price="230">
+                        <img src="img/food/06.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【頂級肉品】台灣溫體松阪豬" 
+                                    data-desc="豬肉界的海鮮！口感脆彈不油膩，簡單煎一下就勝過五星級餐廳。一頭豬僅有的「黃金六雙肉」，極致鮮甜無腥味。嚴選台灣在地溫體豬，職人手切。油脂如雪花分佈，煎至兩面金黃後帶有迷人的脆嫩感，原味即是美味。"
+                                    data-spec="<li>重量：300g/包</li><li>來源：台灣在地溫體豬</li>"
+                                    data-img="img/food/06.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【私房人氣料理】香煎椒鹽松阪豬" 
+                                        data-desc="利用松阪豬豐富的高雅油花乾煎，逼出陣陣脂香，口感爽脆Q彈，越嚼越香！<br><br><b>🛒 食材清單</b><br>• 松阪豬切片：1 包<br>• 蒜瓣：3 瓣（切片）<br>• 蔥段：適量<br>• 鹽巴：少許<br>• 黑胡椒粒：少許<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>退冰：</b>不拆封泡常溫水 10-15 分鐘至完全解凍。<br>2. <b>擦乾：</b>肉片取出後，用廚紙徹底吸乾表面水分。<br>3. <b>下鍋：</b>免放油！直接將肉片平鋪入鍋，以中火乾煎。<br>4. <b>焦香：</b>煎至雙面金黃、邊緣微焦時，下蒜片一同炒香。<br>5. <b>調味：</b>加入蔥段，撒入適量鹽巴與黑胡椒粒快速翻炒。<br>6. <b>上桌：</b>蔥段香味釋出後即可起鍋盛盤，香脆多汁超下飯！" 
+                                        data-img="img/food2/1-6.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title">台灣溫體松阪豬</div>
+                            <div class="promo-badge">300g/包</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$230</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="安格斯霜降牛五花" data-price="250" data-promo-price="250">
+                        <img src="img/food/07.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【火鍋首選】安格斯霜降牛五花肉片" 
+                                    data-desc="堅持原肉切片，絕非重組肉！脂肪香氣濃厚，下鍋涮兩下即化的鮮嫩。在家就能享受頂級火鍋店般的肉質！500g 激量包，帶油筋的霜降質地，脂肪香氣濃郁，口感香甜多汁，滿足你的肉食魂。"
+                                    data-spec="<li>重量：500g±5%/包</li><li>等級：安格斯黑牛</li>"
+                                    data-img="img/food/07.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【丼飯必備】日式洋蔥炒安格斯牛五花" 
+                                        data-desc="肥瘦均勻的安格斯牛五花，搭配焦糖洋蔥與經典醬汁快炒，脂香濃郁、鮮嫩多汁！<br><br><b>🛒 食材清單</b><br>• 安格斯牛五花：半包<br>• 洋蔥：半顆（切絲）<br>• 蔥花：適量<br>• 白芝麻：少許<br>• 醬汁：醬油 2 大匙、味醂 1 大匙、米酒 1 大匙、糖 0.5 小匙<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>退冰：</b>取出半包量。<br>2. <b>爆香：</b>熱鍋下少許油，下洋蔥絲炒至微焦黃變軟、釋放甜味。<br>3. <b>快炒：</b>轉大火，加入牛五花薄片快速翻炒至肉色變白（約 7 分熟）。<br>4. <b>調味：</b>倒入調好的醬汁，大火迅速翻炒均勻，讓肉片飽吸醬汁。<br>5. <b>起鍋：</b>待醬汁稍微收乾、牛五花完全熟透即可關火。<br>6. <b>上桌：</b>盛盤後撒上滿滿蔥花與白芝麻，鋪在白飯上就是美味牛丼！" 
+                                        data-img="img/food2/1-7.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title">安格斯霜降牛五花</div>
+                            <div class="promo-badge">500g 激量包 </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$250</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="薄鹽鯖魚" data-price="95" data-promo-price="95">
+                        <img src="img/food/08.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【日料等級】北大西洋薄鹽鯖魚" 
+                                    data-desc="★ 下班只要 10 分鐘！日本料理店專用大品牌，輕鬆搞定晚餐。富含天然魚油，薄鹽配方帶出深層鮮美。只需乾煎出焦香味，外皮酥脆、肉質鮮潤，是最下飯的完美主餐。"
+                                    data-spec="<li>重量：200g±30g/片</li><li>包裝：真空獨立包裝</li>"
+                                    data-img="img/food/08.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【居酒屋經典】日式薄鹽烤鯖魚" 
+                                        data-desc="富含 EPA 與 DHA，簡單烘烤即可逼出誘人脂香，外酥內多汁！<br><br><b>🛒 食材清單</b><br>• 北大西洋鯖魚：1 片（解凍）<br>• 鹽巴、米酒：少許<br>• 檸檬：1 片<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>準備：</b>魚身洗淨，用廚紙完全吸乾水分。<br>2. <b>去腥：</b>雙面塗米酒靜置 5 分鐘擦乾，魚皮劃斜刀。<br>3. <b>調味：</b>雙面撒薄鹽靜置 10 分鐘。<br>4. <b>烘烤：</b>烤箱預熱 200°C，魚皮朝上烤 12-15 分鐘至金黃內部熟化，擠上檸檬汁即可享用！" 
+                                        data-img="img/food2/1-8.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title"> 北大西洋薄鹽鯖魚</div>
+                            <div class="promo-badge">日料店專用鯖魚!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$95</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="帶肉生鮭魚骨" data-price="130" data-promo-price="130">
+                        <img src="img/food/09.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="【高 CP 值】帶肉生鮭魚骨" 
+                                    data-desc="買魚肉太貴？這包鮭魚骨「帶厚肉」，煮湯、乾煎 CP 值爆表！1000g 只要 $130！已貼心剁好，魚骨邊的肉最香嫩且富含營養。煮味噌湯濃郁、乾煎肥嫩焦脆，是老饕私藏的高 CP 首選。"
+                                    data-spec="<li>重量：1000g±5%/包</li><li>特色：已剁好，帶厚肉</li>"
+                                    data-img="img/food/09.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【鮮甜暖胃】帶肉鮭魚骨味噌湯" 
+                                        data-desc="富含膠原蛋白與 Omega-3，利用魚骨精華熬出奶白湯頭，簡單卻極致鮮美。<br><br><b>🛒 食材清單</b><br>• 帶肉鮭魚骨：200g<br>• 味噌<br>•嫩豆腐<br>•蔥花：適量<br>• 薑片<br>•米酒<br>•奶油(可不加)<br><br><b>👨‍🍳 料理步驟</b><br>1. <b>去腥：</b>魚骨汆燙洗淨，務必去除血塊雜質避免腥味。<br>2. <b>熬湯：</b>水煮滾加入薑片與魚骨，小火熬15分鐘萃取精華。<br>3. <b>調味：</b>使用濾網將味噌化入湯中，避免結塊並保有細緻口感。<br>4. <b>點綴：</b>加入豆腐蔥花，可加奶油增香，微滾即成。" 
+                                        data-img="img/food2/1-9.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title">帶厚肉生鮭魚骨(1kg)</div>
+                            <div class="promo-badge">超值大份量 1kg !</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <span class="product-price">$130</span>
                                 <div class="quantity-control">
@@ -846,145 +881,28 @@ body { padding-top: 35px; }
                 </div>
 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="石狩蝦仁" data-price="250" data-promo-price="250">
-                        <img src="img/food/05.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【懶人救星】石狩蝦仁 (已開背去腸泥)" 
-                                data-desc="石狩蝦仁「拆封即煮」，完全不髒手！&#10;&#10;想煮蝦仁炒飯，想到挑腸泥就心累？專業開背徹底去除腸泥，顆顆晶瑩飽滿。&#10;&#10;760g 誠意大份量，不論炒蛋或鳳梨蝦球，5 分鐘輕鬆上菜，解救你的廚房忙碌時光。"
-                                data-spec="<li>重量：760g/包</li><li>處理：已開背、去腸泥</li>"
-                                data-img="img/food/05.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">石狩蝦仁(鮮凍開背)</div>
-                            <div class="promo-badge">760g 大份量 $250</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$250</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-category="meat" data-name="台灣松阪豬" data-price="199" data-promo-price="199">
-                        <img src="img/food/06.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【頂級肉品】台灣溫體松阪豬" 
-                                data-desc=" 豬肉界的海鮮！口感脆彈不油膩，簡單煎一下就勝過五星級餐廳。&#10;&#10;一頭豬僅有的「黃金六雙肉」，極致鮮甜無腥味。嚴選台灣在地溫體豬，職人手切。&#10;&#10;油脂如雪花分佈，煎至兩面金黃後帶有迷人的脆嫩感，原味即是美味。"
-                                data-spec="<li>重量：300g/包</li><li>來源：台灣在地溫體豬</li>"
-                                data-img="img/food/06.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">台灣溫體松阪豬</div>
-                            <div class="promo-badge">300g/包</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$199</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-category="meat" data-name="安格斯霜降牛五花" data-price="199" data-promo-price="199">
-                        <img src="img/food/07.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【火鍋首選】安格斯霜降牛五花肉片" 
-                                data-desc="堅持原肉切片，絕非重組肉！脂肪香氣濃厚，下鍋涮兩下即化的鮮嫩。&#10;&#10;在家就能享受頂級火鍋店般的肉質！500g 激量包，帶油筋的霜降質地，脂肪香氣濃郁，口感香甜多汁，滿足你的肉食魂。&#10;&#10;🔥 牛肉控必備：500g 只要 $189！肉肉自由就靠這包。"
-                                data-spec="<li>重量：500g±5%/包</li><li>等級：安格斯黑牛</li>"
-                                data-img="img/food/07.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">安格斯霜降牛五花</div>
-                            <div class="promo-badge">500g 激量包 </div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$199</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="薄鹽鯖魚" data-price="89" data-promo-price="81">
-                        <img src="img/food/08.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【日料等級】北大西洋薄鹽鯖魚" 
-                                data-desc="★ 下班只要 10 分鐘！日本料理店專用大品牌，輕鬆搞定晚餐。&#10;&#10;富含天然魚油，薄鹽配方帶出深層鮮美。只需乾煎出焦香味，外皮酥脆、肉質鮮潤，是最下飯的完美主餐。&#10;&#10;便當菜的最佳主角。"
-                                data-spec="<li>重量：200g±30g/片</li><li>包裝：真空獨立包裝</li>"
-                                data-img="img/food/08.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title"> 北大西洋薄鹽鯖魚</div>
-                            <div class="promo-badge">兩片170!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$89</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="帶肉生鮭魚骨" data-price="119" data-promo-price="119">
-                        <img src="img/food/09.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="【高 CP 值】帶肉生鮭魚骨" 
-                                data-desc="買魚肉太貴？這包鮭魚骨「帶厚肉」，煮湯、乾煎 CP 值爆表！&#10;&#10;1000g 只要 $119！已貼心剁好，魚骨邊的肉最香嫩且富含營養。煮味噌湯濃郁、乾煎肥嫩焦脆，是老饕私藏的高 CP 首選。&#10;&#10;🔥 開心老饕最愛：1kg 只要 $109！"
-                                data-spec="<li>重量：1000g±5%/包</li><li>特色：已剁好，帶厚肉</li>"
-                                data-img="img/food/09.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">帶厚肉生鮭魚骨(1kg)</div>
-                            <div class="promo-badge">超值大份量 1kg !</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$119</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="無刺虱目魚肚" data-price="125" data-promo-price="125">
+                    <div class="product-card" data-category="seafood" data-name="無刺虱目魚肚" data-price="145" data-promo-price="145">
                         <img src="img/food/10.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="台南無刺虱目魚肚XL" 
-                                data-desc=" 怕吃到迷你魚肚？我們堅持 XL 規格，每一口都厚實飽滿。&#10;&#10;台南產地直供，180-230g 大規格！中間厚實的油脂是鮮美靈魂，專業無刺處理，小孩長輩安心吃，買越多省越多。&#10;&#10;🔥 產地價回饋：五片組 $550！平均一片只要 $110。" 
-                                data-spec="<li>重量：180-230g/片</li><li>處理：完全無刺</li>" 
-                                data-img="img/food/10.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="台南無刺虱目魚肚XL" 
+                                    data-desc=" 怕吃到迷你魚肚？我們堅持 XL 規格，每一口都厚實飽滿。台南產地直供，180-230g 大規格！中間厚實的油脂是鮮美靈魂，專業無刺處理，小孩長輩安心吃。" 
+                                    data-spec="<li>重量：180-230g/片</li><li>處理：完全無刺</li>" 
+                                    data-img="img/food/10.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【金黃香酥】乾煎虱目魚肚" 
+                                        data-desc="台灣經典美味！魚皮酥脆、魚肚肥美，簡單調味最鮮甜。<br><br><b>🛒 食材</b><br>• 虱目魚肚：1片<br>• 鹽、白胡椒：適量<br>• 米酒、薑片：去腥用<br><br><b>👨‍🍳 步驟</b><br>1. <b>擦乾：</b>魚肚洗淨，務必吸乾水分防爆油。<br>2. <b>醃漬：</b>抹鹽、胡椒、米酒靜置 5 分鐘。<br>3. <b>煎製：</b>皮朝下中小火煎至金黃，翻面煎熟即可。" 
+                                        data-img="img/food2/1-10.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title">台南無刺虱目魚肚XL</div>
-                            <div class="promo-badge">【超值囤貨組】五片$550</div>
+                            <div class="promo-badge">【超值囤貨組】五片$600</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$125</span>
+                                <span class="product-price">$145</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -996,251 +914,20 @@ body { padding-top: 35px; }
                 </div>
 
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="最新船凍秋刀魚" data-price="119" data-promo-price="119">
+                    <div class="product-card" data-category="seafood" data-name="最新船凍秋刀魚" data-price="149" data-promo-price="131">
                         <img src="img/food/12.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="正1號船凍秋刀魚" data-desc="專供高級餐廳的船凍秋刀魚!在捕獲瞬間即刻低溫「船凍」，把剛上岸的那份海味精華徹底鎖住。免去繁瑣調味，撒上一點海鹽或擠點檸檬，就是五星級的晚餐" data-spec="<li>重量：5尾/包/750克±10%</li><li>包裝：真空獨立包裝</li>" data-img="img/food/12.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="正1號船凍秋刀魚" data-desc="專供高級餐廳的船凍秋刀魚!在捕獲瞬間即刻低溫「船凍」，把剛上岸的那份海味精華徹底鎖住。免去繁瑣調味，撒上一點海鹽或擠點檸檬，就是五星級的晚餐" data-spec="<li>重量：5尾/包/750克±10%</li><li>包裝：真空獨立包裝</li>" data-img="img/food/12.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【鮮香酥脆】鹽烤秋刀魚" 
+                                        data-desc="皮脆肉嫩，秋季最經典的下酒好菜。<br><br><b>🛒 食材</b><br>• 秋刀魚：1 尾<br>• 海鹽：適量<br>• 檸檬：1 片<br><br><b>👨‍🍳 步驟</b><br>1. <b>處理：</b>魚身洗淨擦乾，表面輕劃兩刀。<br>2. <b>調味：</b>兩面均勻抹上海鹽。<br>3. <b>燒烤：</b>烤箱或氣炸鍋200度，烤 15-20 分鐘至金黃，內部熟化即可。" 
+                                        data-img="img/food2/1-12.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title"> 正1號船凍秋刀魚</div>
-                            <div class="promo-badge">1包5入組</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$119</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="黃金鯧" data-price="139" data-promo-price="130">
-                        <img src="img/food/13.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="黃金鯧" 
-                                data-desc="下班回到家，想吃得健康點，卻想到洗魚、去鱗、處理內臟就心累？職人三去處理：去鱗、去鰓、去內臟，拆封即煮，優雅下廚不再是夢。抹點薄鹽乾煎至金黃焦香，那股迷人香氣，隔壁鄰居都會來敲門。"
-                                data-spec="<li>重量：400g±5%/尾</li><li>包裝：真空獨立包裝</li><li>包裝：真空獨立包裝</li>"
-                                data-img="img/food/13.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title"> 黃金鯧</div>
-                            <div class="promo-badge">2尾269</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$139</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="鮸魚切片" data-price="139" data-promo-price="139">
-                        <img src="img/food/14.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="鮸魚切片" 
-                                data-desc="別再買那些薄如紙、一煎就散的魚片了！我們這款鮸魚切片，主打一個「厚」字。每一片都重達 350g 以上，扎扎實實的肉質，保證讓愛吃魚的人大呼過癮。鮸魚獨有的豐富魚油，下鍋乾煎時會散發濃郁香氣，外酥內嫩。"
-                                data-spec="<li>重量：350-370g/片</li><li>包裝：真空獨立包裝</li>"
-                                data-img="img/food/14.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">鮸魚切片</div>
-                            <div class="promo-badge">每一片都重達 350g</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$139</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-category="meat" data-name="美國精選牛肋條" data-price="210" data-promo-price="210">
-                        <img src="img/food/15.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="美國精選牛肋條" 
-                                data-desc="精選美國 Choice 級，肉厚、香 Q、超多汁。一包 400g 的精緻包裝，不管是小家庭煮一餐，或是單身貴族想犒賞自己，份量都恰到好處。切成小方塊下鍋乾煎，逼出牛油香氣，撒點海鹽就是頂級居酒屋風味。"
-                                data-spec="<li>重量：400克/包</li><li>包裝：真空包裝</li>"
-                                data-img="img/food/15.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
-                            <div class="product-title">美國精選牛肋條</div>
-                            <div class="promo-badge">1包400克!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$210</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="金目鱸魚排" data-price="135" data-promo-price="135">
-                        <img src="img/food/16.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="金目鱸魚排" data-desc="給孩子吃魚，一定要選這款！無刺「鱸魚菲力」，大口吃肉不卡關。想煮鮮魚粥，肉質久煮不散，鮮甜湯頭一試難忘。" data-spec="<li>重量：300g-400g/片</li><li>包裝：真空包裝</li>" data-img="img/food/16.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">金目鱸魚排</div>
-                            <div class="promo-badge">大規格鱸魚只要135!!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$135</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="野生船凍咪咪卷（大號版）" data-price="99" data-promo-price="81">
-                        <img src="img/food/19.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="野生船凍咪咪卷（大號版）" data-desc="來自純淨海域的鮮甜海味，捕獲後立即極速凍結，完美鎖住原始鮮度。我們選用大尺寸規格，隻隻眼睛透亮、斑點清晰，口感Q彈鮮脆，簡單川燙就是極致享受。" data-spec="<li>300g±10%/盒</li><li>超值價：2盒只要 $180</li>" data-img="img/food/19.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">野生船凍咪咪卷（大號版）</div>
-                            <div class="promo-badge">2盒優惠180元!!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$99</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
-                    <div class="product-card" data-cat="dessert" data-name="古早味南部肉粽" data-price="410" data-promo-price="410">
-                        <img src="img/food/17.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="古早味南部肉粽" data-desc="這才是真正的南部靈魂！水煮極致黏Q、蛋黃香菇滷肉滿出來，小編從小吃到大！輕輕劃開，裡面的香菇、綿密蛋黃、肥瘦適中的特製滷肉瞬間爆出，每一口都吸飽了滷汁與粽葉的濃郁香氣，這才是真正讓人停不下來的古早味！" data-spec="<li>重量：一串10顆/2.2kg</li>" data-img="img/food/17.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">古早味南部肉粽</div>
-                            <div class="promo-badge">一串10顆，一顆只要41!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$410</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
-                    <div class="product-card" data-category="dessert" data-name="榴槤千層蛋糕" data-price="290" data-promo-price="290">
-                        <img src="img/food/18.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="9sach榴槤千層蛋糕" data-desc="真正榴槤果肉入餡！5吋大牌千層蛋糕！層層堆疊的柔軟薄餅，夾著絲滑的鮮奶油，以及厚實、綿密、香氣炸裂的榴槤果肉。 含進嘴裡的瞬間，細緻的餅皮與濃郁果肉在舌尖化開，濃、醇、香交織，冰冰的吃口感就像雪糕一樣，簡真是天堂級的邪惡享受！" data-spec="<li>重量：400g（約5吋）</li><li>【限時】：好不容易爭取到的團購優惠，聰明人都直接帶兩顆！</li>" data-img="img/food/18.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">9sach榴槤千層蛋糕</div>
-                            <div class="promo-badge">限時熱銷搶購中</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$290</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
-                    <div class="product-card" data-category="dessert" data-name="泰國金枕頭榴槤肉" data-price="199" data-promo-price="199">
-                        <img src="img/food/20.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="泰國金枕頭榴槤肉" data-desc="下午茶想來點不一樣的奢華享受？不用去泰國，這一口濃郁直達心頭！金黃飽滿的果肉，質地如冰淇淋般綿密。濃郁奶香與自然果甜在口中化開，每一口都是滿滿的幸福感，吃過一次就回不去了。" data-spec="<li>重量：300g/盒</li><li>超值價：199元</li>" data-img="img/food/20.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">泰國金枕頭榴槤</div>
-                            <div class="promo-badge">限時熱銷搶購中</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$199</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
-                    <div class="product-card" data-cat="dessert" data-name="鹽味毛豆莢" data-price="100" data-promo-price="100">
-                        <img src="img/food/23.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="鹽味毛豆莢" data-desc="CAS 認證 A 級非基改毛豆，省去料理煩惱，退冰即可直接享用。嚴格挑選豆仁飽滿的頂級品，薄鹽襯托出豆子的天然香氣，是追劇、配酒最唰嘴的零負擔良伴。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/23.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">鹽味毛豆莢</div>
-                            <div class="promo-badge">1000g/100元!!</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$100</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
-                    <div class="product-card" data-cat="dessert" data-name="紫皮栗子地瓜" data-price="160" data-promo-price="140">
-                        <img src="img/food/24.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="紫皮栗子地瓜" data-desc="嚴選優質紫皮品種，擁有如栗子般迷人的鬆軟口感，飽足感十足且營養豐富。皮薄肉多，熱熱吃溫暖鬆軟，冰涼吃口感如同天然地瓜冰淇淋，大人小孩都愛不釋手。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/24.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">紫皮栗子地瓜</div>
-                            <div class="promo-badge">兩包300</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$160</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-cat="meat" data-name="紐奧良三節翅" data-price="120" data-promo-price="120">
-                        <img src="img/food/22.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="紐奧良三節翅" data-desc="獨家調製紐奧良風味，甜辣醬汁徹底入味，肉質鮮嫩、汁水滿溢。氣炸或烤箱加熱 15 分鐘，香氣瞬間爆棚，是全家宵夜、派對狂歡絕對秒殺的必備神菜。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/22.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">紐奧良三節翅</div>
-                            <div class="promo-badge">1000g/120一包</div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$120</span>
-                                <div class="quantity-control">
-                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
-                                    <span class="qty mx-1">0</span>
-                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-cat="meat" data-name="橙香排骨" data-price="149" data-promo-price="149">
-                        <img src="img/food/25.jpg" class="w-100">
-                        <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="橙香排骨" data-desc="選用台灣上等豬排骨，搭配主廚獨家橙香秘醬，酸甜層次豐富、開胃不油膩。濃郁果香與鮮嫩肉質結合，一上桌瞬間香氣四溢，保證全家人多添兩碗白飯。" data-spec="<li>重量：排骨320g + 醬80g/包</li>" data-img="img/food/25.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
-                            <div class="product-title">橙香排骨</div>
-                            <div class="promo-badge">快速上桌，320g排骨</div>
+                            <div class="promo-badge">1包5入組 2包280!</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <span class="product-price">$149</span>
                                 <div class="quantity-control">
@@ -1252,20 +939,336 @@ body { padding-top: 35px; }
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="黃金鯧" data-price="170" data-promo-price="150">
+                        <img src="img/food/13.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="黃金鯧" 
+                                    data-desc="職人三去處理：去鱗、去鰓、去內臟，拆封即煮，優雅下廚不再是夢。抹點薄鹽乾煎至金黃焦香，那股迷人香氣，隔壁鄰居都會來敲門。"
+                                    data-spec="<li>重量：400g±5%/尾</li><li>包裝：真空獨立包裝</li>"
+                                    data-img="img/food/13.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【年菜必備】紅燒黃金鯧" 
+                                        data-desc="象徵年年有餘，肉質鮮嫩、鹹香入味。<br><br><b>🛒 食材</b><br>• 黃金鯧：1 尾<br>• 蔥、薑、蒜：適量<br>• 調味料：醬油、米酒、糖<br><br><b>👨‍🍳 步驟</b><br>1. <b>煎魚：</b>魚兩面煎至金黃起鍋。<br>2. <b>爆香：</b>原鍋爆香蔥、薑、蒜。<br>3. <b>燜煮：</b>放回魚與調味料，加水燜煮入味。<br>4. <b>收汁：</b>湯汁濃稠後撒上蔥花即可。" 
+                                        data-img="img/food2/1-13.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title"> 黃金鯧</div>
+                            <div class="promo-badge">2尾320</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$170</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="鮸魚切片" data-price="160" data-promo-price="160">
+                        <img src="img/food/14.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="鮸魚切片" 
+                                    data-desc="每一片都重達 350g 以上，扎扎實實的肉質，保證讓愛吃魚的人大呼過癮。鮸魚獨有的豐富魚油，下鍋乾煎時會散發濃郁香氣，外酥內嫩。"
+                                    data-spec="<li>重量：350-370g/片</li><li>包裝：真空獨立包裝</li>"
+                                    data-img="img/food/14.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                            <button type="button" class="btn recipe-btn" 
+                                    data-title="【頂級鮮嫩】香煎金黃鮸魚排" 
+                                    data-desc="肉質極致細嫩扎實、富含膠質。簡單乾煎至表皮金黃酥脆，即可完美釋放頂級海味。<br><br><b>🛒 食材</b><br>• 鮮凍鮸魚切片：1片 (約370-400g)<br>• 鹽、白胡椒粉：少許<br>• 植物油：1大匙<br>• 檸檬片、胡椒鹽：適量<br><br><b>👨‍🍳 步驟</b><br>1. <b>醃製：</b>魚片徹底退冰並擦乾水分，兩面均勻抹上薄鹽與胡椒粉醃製 10 分鐘。<br>2. <b>熱鍋：</b>下油熱鍋至微冒煙，轉中小火，魚片入鍋煎至一面金黃固定（約4分鐘）。<br>3. <b>香煎：</b>小心翻面，將另一面同樣煎至金黃酥脆、魚肉熟透，起鍋瀝油搭配檸檬享用。" 
+                                    data-img="img/food2/1-14.jpg"> 
+                                <i class="fa-solid fa-utensils"></i> 食譜 
+                            </button>
+                            </div>
+                            <div class="product-title">鮸魚切片</div>
+                            <div class="promo-badge">每一片都重達 350g</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$160</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-category="meat" data-name="台灣溫體 肉很多排骨" data-price="119" data-promo-price="119">
+                    <div class="product-card" data-category="meat" data-name="美國精選牛肋條" data-price="230" data-promo-price="230">
+                        <img src="img/food/15.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="美國精選牛肋條" 
+                                    data-desc="精選美國 Choice 級，肉厚、香 Q、超多汁。切成小方塊下鍋乾煎，逼出牛油香氣，撒點海鹽就是頂級居酒屋風味。"
+                                    data-spec="<li>重量：400克/包</li><li>包裝：真空包裝</li>"
+                                    data-img="img/food/15.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【濃郁佳餚】紅燒番茄牛肋條" 
+                                        data-desc="經典家常風味，湯頭濃郁酸甜、肉質軟嫩，極致入味。<br><br><b>🛒 食材</b><br>• 牛肋條：400g<br>• 大番茄：1顆<br>• 洋蔥：0.5顆<br>• 蒜頭：5瓣<br>• 醬油：3大匙<br>• 冰糖：0.5大匙<br>• 高湯（或水）：適量<br><br><b>👨‍🍳 步驟</b><br>1. <b>處理：</b>牛肋條切成適口塊狀，冷水下鍋汆燙，煮至水滾變色後撈出，用清水沖洗表面浮沫瀝乾備用。<br>2. <b>爆香：</b>熱鍋倒入少許油，將蒜頭與洋蔥丁爆炒至飄出香味，放入牛肋條煎至表面微焦，逼出牛油香氣。<br>3. <b>燉煮：</b>加入番茄塊翻炒至稍微軟化，加入醬油與冰糖炒出焦糖香，倒入高湯至淹過食材。<br>4. <b>慢燉：</b>大火煮滾後轉小火，蓋上鍋蓋慢燉 40 分鐘至肉質軟嫩入味，最後視情況開蓋收汁即可。" 
+                                        data-img="img/food2/1-15.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title">美國精選牛肋條</div>
+                            <div class="promo-badge">400/克!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$230</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="金目鱸魚排" data-price="159" data-promo-price="159">
+                        <img src="img/food/16.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="金目鱸魚排" data-desc="給孩子吃魚，一定要選這款！無刺「鱸魚菲力」，大口吃肉不卡關。想煮鮮魚粥，肉質久煮不散，鮮甜湯頭一試難忘。" data-spec="<li>重量：300g-400g/片</li><li>包裝：真空包裝</li>" data-img="img/food/16.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【養生清爽】清蒸金目鱸魚排" 
+                                        data-desc="肉質細緻鮮美、富含優質膠質，搭配蔥薑清蒸最顯現鮮甜原味。<br><br><b>🛒 食材</b><br>• 金目鱸魚排：1片 (約300g)<br>• 蔥、薑：適量 (切絲)<br>• 米酒：1大匙<br>• 蒸魚醬油：2大匙<br>• 植物油：1大匙<br><br><b>👨‍🍳 步驟</b><br>1. <b>去腥：</b>魚排洗淨擦乾置於盤上，鋪上薑絲、蔥白並淋上米酒。<br>2. <b>清蒸：</b>水滾後將魚盤入鍋，蓋上鍋蓋大火蒸約 8 分鐘。<br>3. <b>嗆香：</b>出爐後倒掉盤底餘湯，淋上蒸魚醬油、鋪蔥綠絲，澆上熱油。" 
+                                        data-img="img/food2/1-16.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
+                            <div class="product-title">金目鱸魚排</div>
+                            <div class="promo-badge">大規格鱸魚只要159!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$159</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
+                    <div class="product-card" data-category="seafood" data-name="野生船凍咪咪卷（大號版）" data-price="109" data-promo-price="109">
+                        <img src="img/food/19.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="野生船凍咪咪卷（大號版）" data-desc="來自純淨海域的鮮甜海味，完美鎖住原始鮮度。我們選用大尺寸規格，隻隻眼睛透亮、斑點清晰，口感Q彈鮮脆，簡單川燙就是極致享受。" data-spec="<li>300g±10%/盒</li><li>超值價：2盒只要 $180</li>" data-img="img/food/19.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【鮮甜Q彈】冰鎮五味大咪咪卷" 
+                                        data-desc="嚴選大號規格，船凍新鮮直送！川燙冰鎮後極致Q彈脆口，搭配特調五味醬堪稱夏季絕配。<br><br><b>🛒 食材</b><br>• 大號咪咪卷(小卷)：300g<br>• 薑片、米酒：少許 (去腥用)<br>• 五味醬或哇沙米：適量<br><br><b>👨‍🍳 步驟</b><br>1. <b>去腥：</b>滾水中加入薑片與少許米酒。<br>2. <b>汆燙：</b>放入退冰大咪咪卷，大火汆燙 5 分鐘撈起。<br>3. <b>冰鎮：</b>迅速放入冰水中冰鎮鎖住鮮甜，切圈沾醬即可上桌。" 
+                                        data-img="img/food2/1-19.jpg"> 
+                                    <i class="fa-solid fa-utensils"></i> 食譜 
+                                </button>
+                            </div>
+                            <div class="product-title">野生船凍咪咪卷（大號版）</div>
+                            <div class="promo-badge">大盒109元!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$109</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="古早味南部肉粽" data-price="460" data-promo-price="460">
+                        <img src="img/food/17.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="古早味南部肉粽" data-desc="這才是真正的南部靈魂！水煮極致黏Q、蛋黃香菇滷肉滿出來。裡面的香菇、綿密蛋黃、肥瘦適中的特製滷肉瞬間爆出，每一口都吸飽了滷汁與粽葉的濃郁香氣！" data-spec="<li>重量：一串10顆/2.2kg</li>" data-img="img/food/17.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【加熱指南】古早味肉粽" data-desc="1. 建議使用傳統電鍋加熱最能保留水煮粽的綿密。<br>2. 冷凍狀態不需退冰，外鍋加入兩杯水。<br>3. 蒸約 30-40 分鐘，跳起後悶 5 分鐘。<br>4. 搭配甜辣醬或花生粉，完美復刻南部家鄉味！" data-img="img/food2/1-17.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">古早味南部肉粽</div>
+                            <div class="promo-badge">一串10顆!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$460</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-category="dessert" data-name="榴槤千層蛋糕" data-price="320" data-promo-price="280">
+                        <img src="img/food/18.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="9sach榴槤千層蛋糕" data-desc="真正榴槤果肉入餡！5吋大牌千層蛋糕！層層堆疊的柔軟薄餅，夾著絲滑的鮮奶油，以及厚實、綿密、香氣炸裂的榴槤果肉。" data-spec="<li>重量：400g（約5吋）</li><li>【限時】：好不容易爭取到的團購優惠，聰明人都直接帶兩顆！</li>" data-img="img/food/18.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【最佳賞味】榴槤千層蛋糕" data-desc="1. 冰淇淋口感：直接由冷凍庫取出，於室溫放置 5 分鐘後切片享用。<br>2. 綿密柔軟口感：移至冷藏庫慢慢退冰約 2 小時，鮮奶油與果肉會完美融合，入口即化。<br>搭配無糖紅茶或黑咖啡，是完美的下午茶！" data-img="img/food2/1-18.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">9sach榴槤千層蛋糕</div>
+                            <div class="promo-badge">限時搶購中，兩顆600!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$320</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-category="dessert" data-name="泰國金枕頭榴槤肉" data-price="220" data-promo-price="220">
+                        <img src="img/food/20.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="泰國金枕頭榴槤肉" data-desc="金黃飽滿的果肉，質地如冰淇淋般綿密。濃郁奶香與自然果甜在口中化開，每一口都是滿滿的幸福感，吃過一次就回不去了。" data-spec="<li>重量：300g/盒</li><li>超值價：220元</li>" data-img="img/food/20.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【神仙吃法】金枕頭榴槤" data-desc="1. 原味冰棒：冷凍狀態直接吃，就像在吃高純度榴槤冰淇淋。<br>2. 榴槤牛奶：取適量退冰果肉，加入鮮奶與少許冰塊，用果汁機打勻，香濃無比！<br>3. 氣炸烤榴槤：鋪鋁箔紙，放入氣炸鍋 200 度烤 10 分鐘，逼出濃郁焦糖香氣。" data-img="img/food2/1-20.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">泰國金枕頭榴槤</div>
+                            <div class="promo-badge">限時熱銷搶購中</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$220</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="鹽味毛豆莢" data-price="120" data-promo-price="120">
+                        <img src="img/food/23.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="鹽味毛豆莢" data-desc="CAS 認證 A 級非基改毛豆，省去料理煩惱，退冰即可直接享用。嚴格挑選豆仁飽滿的頂級品，薄鹽襯托出豆子的天然香氣。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/23.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【解凍即食】鹽味毛豆莢" data-desc="這是一款開袋即食的完美下酒菜。熱量低，很適合嘴饞又怕胖的人吃！<br>1. 最佳口感：食用前從冷凍庫移至冷藏慢慢退冰，或放置室溫自然解凍。<br>2. 喜歡微溫口感：可用微波爐低火加熱 1 分鐘，豆香會更濃郁。<br>追劇、配啤酒的最佳良伴。" data-img="img/food2/1-23.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">鹽味毛豆莢</div>
+                            <div class="promo-badge">1000g/120元!!</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$120</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="dessert">
+                    <div class="product-card" data-cat="dessert" data-name="紫皮栗子地瓜" data-price="180" data-promo-price="170">
+                        <img src="img/food/24.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="紫皮栗子地瓜" data-desc="嚴選優質紫皮品種，擁有如栗子般迷人的鬆軟口感，飽足感十足且營養豐富。熱熱吃溫暖鬆軟，冰涼吃口感如同天然地瓜冰淇淋。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/24.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【多重吃法】紫皮栗子地瓜" data-desc="1. 天然冰品：稍微退冰後直接吃，口感如綿密冰淇淋。<br>2. 鬆軟熱食：放入微波爐中火微波 2-3 分鐘，或放入電鍋蒸熱，散發誘人栗子香。<br>3. 香烤風味：氣炸鍋 180 度烤 5 分鐘，表皮微焦，內部極致鬆軟。" data-img="img/food2/1-24.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">紫皮栗子地瓜</div>
+                            <div class="promo-badge">兩包350</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$180</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-cat="meat" data-name="紐奧良三節翅" data-price="130" data-promo-price="130">
+                        <img src="img/food/22.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="紐奧良三節翅" data-desc="獨家調製紐奧良風味，甜辣醬汁徹底入味，肉質鮮嫩、汁水滿溢。氣炸或烤箱加熱 15 分鐘，香氣瞬間爆棚，是派對狂歡絕對秒殺的必備神菜。" data-spec="<li>重量：1000g/包</li>" data-img="img/food/22.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【零失敗】氣炸紐奧良烤翅" data-desc="1. 食材無需完全解凍。<br>2. 氣炸鍋設定 180 度，放入雞翅烤 10 分鐘。<br>3. 拉出翻面，將溫度調高至 200 度，再烤 5 分鐘逼出多餘油脂。<br>4. 外皮呈現焦糖色即可上桌，香氣四溢！" data-img="img/food2/1-22.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">紐奧良三節翅</div>
+                            <div class="promo-badge">1000g/130一包</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$130</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-cat="meat" data-name="橙香排骨" data-price="160" data-promo-price="160">
+                        <img src="img/food/25.jpg" class="w-100">
+                        <div class="product-info">
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="C" data-desc="選用台灣上等豬排骨，搭配主廚獨家橙香秘醬，酸甜層次豐富、開胃不油膩。濃郁果香與鮮嫩肉質結合，保證全家人多添兩碗白飯。" data-spec="<li>重量：排骨320g + 醬80g/包</li>" data-img="img/food/25.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【餐廳級上菜】橙香排骨" data-desc="1. 排骨完全解凍，可先用氣炸鍋 180度 烤 5 分鐘或微波加熱，讓肉質回溫。<br>2. 準備平底鍋，將附贈的橙香醬汁倒入鍋中微幅加熱。<br>3. 放入排骨，中小火快速翻拌，讓醬汁均勻裹滿排骨。<br>4. 盛盤後可撒上一點白芝麻，顏值口感雙滿分！" data-img="img/food2/1-25.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
+                            <div class="product-title">橙香排骨</div>
+                            <div class="promo-badge">快速上桌，320g排骨</div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="product-price">$160</span>
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
+                                    <span class="qty mx-1">0</span>
+                                    <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
+                    <div class="product-card" data-category="meat" data-name="台灣溫體 肉很多排骨" data-price="140" data-promo-price="140">
                         <img src="img/food/26.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" 
-                                data-title="台灣溫體 肉很多排骨" 
-                                data-desc="當日溫體台灣豬，嚴選最有肉的上排部位，每一塊都經過手工精準切塊。 肉質鮮嫩多肉又多汁無腥味，不論煮湯、糖醋還是紅燒肉，輕鬆就能端出餐廳級的家常排骨料理囉!!"
-                                data-img="img/food/26.jpg">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容
-                            </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" 
+                                    data-title="台灣溫體 肉很多排骨" 
+                                    data-desc="當日溫體台灣豬，嚴選最有肉的上排部位，每一塊都經過手工精準切塊。 肉質鮮嫩多肉又多汁無腥味，不論煮湯、糖醋還是紅燒肉，輕鬆就能端出餐廳級的家常排骨料理囉!!"
+                                    data-img="img/food/26.jpg">
+                                    <i class="fa-solid fa-file-lines"></i> 介紹
+                                </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【經典燉湯】玉米蘿蔔排骨湯" 
+                                        data-desc="溫暖入味的家常湯品，玉米與蘿蔔的清甜完美融入排骨湯中，滋味清爽而不膩。<br><br><b>🛒 食材</b><br>• 排骨：400g<br>• 白蘿蔔：半條<br>• 玉米：1根<br>• 薑片：3片<br>• 香菜、鹽：適量<br><br><b>👨‍🍳 料理方式</b><br>1. <b>汆燙去血水：</b>排骨放入冷水中，加入薑片煮滾後撈出，用流動清水洗淨表面的浮沫雜質。<br>2. <b>燉煮湯底：</b>準備一鍋清水煮滾，放入處理好的排骨、切塊的白蘿蔔與玉米段。<br>3. <b>慢燉入味：</b>蓋上鍋蓋，轉中小火慢燉約 40 分鐘，直至蘿蔔呈現半透明狀、排骨軟嫩。<br>4. <b>調味起鍋：</b>起鍋前加入適量鹽巴調味，撒上香菜提味即完成這道暖胃靚湯。" 
+                                        data-img="img/food2/1-26.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title">肉多多排骨</div>
                             <div class="promo-badge">600克/包!</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$119</span>
+                                <span class="product-price">$140</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -1275,15 +1278,24 @@ body { padding-top: 35px; }
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="meat">
-                    <div class="product-card" data-cat="meat" data-name="老滷慢燉大腸" data-price="100" data-promo-price="89">
+                    <div class="product-card" data-cat="meat" data-name="老滷慢燉大腸" data-price="110" data-promo-price="90">
                         <img src="img/food/27.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="老滷慢燉大腸" data-desc="職人堅持的老滷配方，經慢火燉煮直到每一處都極致入味，口感軟而不爛。完全去油膩處理，口感軟Q透徹，隨手復熱就是一道香氣逼人的下飯好菜，配酒更是一絕。" data-spec="<li>重量：300g/包</li>" data-img="img/food/27.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="老滷慢燉大腸" data-desc="職人堅持的老滷配方，經慢火燉煮直到每一處都極致入味，口感軟而不爛。隨手復熱就是一道香氣逼人的下飯好菜，配酒更是一絕。" data-spec="<li>重量：300g/包</li>" data-img="img/food/27.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" 
+                                        data-title="【極致入味】老滷大腸" 
+                                        data-desc="嚴選熟滷大腸，口感軟嫩彈牙，醬香濃郁，只需簡單復熱即可享用家常美味。<br><br><b>💡 加熱方式</b><br>• <b>電鍋蒸煮：</b>取出大腸與滷汁放入碗中，外鍋加半杯水，跳起即可享用。<br>• <b>微波加熱：</b>取出放入可微波碗盤，加蓋或覆蓋保鮮膜（留透氣孔），中火加熱約 1-2 分鐘至溫熱。<br><b>👨‍🍳 升級美味小撇步</b><br>熱鍋爆香薑絲、蒜末與蔥段，倒入復熱好的滷大腸快速翻炒，起鍋前撒上一把九層塔或香菜，香氣層次更上一層樓！" 
+                                        data-img="img/food2/1-27.jpg">
+                                    <i class="fa-solid fa-utensils"></i> 食譜
+                                </button>
+                            </div>
                             <div class="product-title">老滷慢燉大腸</div>
-                            <div class="promo-badge">兩件180!</div>
+                            <div class="promo-badge">兩件200!</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$100</span>
+                                <span class="product-price">$110</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -1293,15 +1305,19 @@ body { padding-top: 35px; }
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-6 px-2 mix-target" data-cat="seafood">
-                    <div class="product-card" data-category="seafood" data-name="澎湖明興花枝蝦漿" data-price="109" data-promo-price="109">
+                    <div class="product-card" data-category="seafood" data-name="澎湖明興花枝蝦漿" data-price="110" data-promo-price="110">
                         <img src="img/food/21.jpg" class="w-100">
                         <div class="product-info">
-                            <button type="button" class="btn info-btn" data-title="澎湖明興花枝蝦漿" data-desc="愛吃花枝蝦漿得朋友有福了!來自澎湖的明星級美味——「明興花枝蝦漿」，這才是你餐桌上該有的高級感。嚴選新鮮純花枝與Q彈海蝦仁，堅持手工打漿，不混魚漿、不加防腐劑。每一口都能吃到貨真價實的彈牙口感，鮮甜滋味在舌尖瞬間爆發！" data-spec="<li>150g±6g/袋</li>" data-img="img/food/21.jpg"> <i class="fa-solid fa-magnifying-glass-plus"></i> 商品介紹與內容 </button>
+                            <div class="action-btn-group">
+                                <button type="button" class="btn info-btn" data-title="澎湖明興花枝蝦漿" data-desc="來自澎湖的明星級美味！嚴選新鮮純花枝與Q彈海蝦仁，堅持手工打漿，不混魚漿、不加防腐劑。每一口都能吃到貨真價實的彈牙口感！" data-spec="<li>150g±6g/袋</li>" data-img="img/food/21.jpg"> <i class="fa-solid fa-file-lines"></i> 介紹 </button>
+                                <button type="button" class="btn recipe-btn" data-title="【百搭海味】金黃氣炸花枝蝦球" data-desc="1. 漿袋解凍，剪開一角擠成適當大小的丸子。<br>2. 可以直接丟入火鍋中煮熟享用，超級Q彈。<br>3. 氣炸升級版：將丸子表面滾上一點點油，放入氣炸鍋 180 度烤 8-10 分鐘，外酥內彈，想吃餐廳版的炸花枝蝦球可以裹上壓碎的油條或麵包粉也無敵好吃喔！" data-img="img/food2/1-21.jpg"> <i class="fa-solid fa-utensils"></i> 食譜 </button>
+                            </div>
                             <div class="product-title">明興花枝蝦漿</div>
                             <div class="promo-badge">私心推薦!!</div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <span class="product-price">$109</span>
+                                <span class="product-price">$110</span>
                                 <div class="quantity-control">
                                     <button class="btn btn-sm btn-outline-secondary minus-btn">-</button>
                                     <span class="qty mx-1">0</span>
@@ -1315,7 +1331,7 @@ body { padding-top: 35px; }
         </div>
     </section>
 
-    <footer class="footer-cta-box">
+ <footer class="footer-cta-box">
         <div class="container">
            
             <a href="https://line.me/R/oaMessage/@022tfybd/" class="btn-line-custom">
@@ -1324,7 +1340,7 @@ body { padding-top: 35px; }
             <div class="footer-email">客服信箱：anzhifresh@gmail.com</div>
             <div class="footer-copyright">© 2026 安織生鮮 | 質感生鮮購物平台</div>
         </div>
-    </footer>
+ </footer>
 
     <div id="cart-bar" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px 20px; z-index: 1200;">
         <div class="container d-flex justify-content-between align-items-center">
@@ -1355,6 +1371,28 @@ body { padding-top: 35px; }
                     <ul id="modal-product-spec" class="spec-list">規格載入中...</ul>
                     
                     <button type="button" class="modal-return-btn" data-dismiss="modal">
+                        <i class="fa-solid fa-arrow-rotate-left mr-2"></i>返回賣場繼續選購
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid #ffebe7;">
+                    <h5 class="modal-title" id="modal-recipe-title" style="font-weight: 800; color:#ee4d2d;">食譜名稱</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modal-recipe-img" src="" class="w-100 mb-3" style="border-radius:10px; width: 100%; height: auto; object-fit: cover; max-height: 250px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div class="modal-spec-title" style="color: #ee4d2d; border-left-color: #ee4d2d;">👨‍🍳 推薦料理步驟</div>
+                    <div id="modal-recipe-desc" class="modal-desc-text" style="background: #fff9f8; padding: 15px; border-radius: 10px; border: 1px solid #ffebe7;">食譜載入中...</div>
+                    
+                    <button type="button" class="modal-return-btn" style="background-color: #ee4d2d; color: white;" data-dismiss="modal">
                         <i class="fa-solid fa-arrow-rotate-left mr-2"></i>返回賣場繼續選購
                     </button>
                 </div>
@@ -1688,6 +1726,25 @@ body { padding-top: 35px; }
             }
         });
 
+        // 綁定商品介紹彈窗
+        $(document).on('click', '.info-btn', function(e) {
+            e.preventDefault();
+            $('#modal-product-title').text($(this).data('title'));
+            $('#modal-product-img').attr('src', $(this).data('img'));
+            $('#modal-product-desc').html($(this).data('desc').replace(/\n/g, '<br>'));
+            $('#modal-product-spec').html($(this).data('spec'));
+            $('#productModal').modal('show');
+        });
+
+        // 🔥新增：綁定食譜彈窗事件
+        $(document).on('click', '.recipe-btn', function(e) {
+            e.preventDefault();
+            $('#modal-recipe-title').text($(this).data('title'));
+            $('#modal-recipe-img').attr('src', $(this).data('img'));
+            $('#modal-recipe-desc').html($(this).data('desc').replace(/\n/g, '<br>'));
+            $('#recipeModal').modal('show');
+        });
+        
         // 手機端 Touch 滑動刪除核心演算法
         function initSwipeDeleteEvents() {
             let startX = 0;
