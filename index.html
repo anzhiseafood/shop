@@ -330,7 +330,7 @@
         
         .modal-return-btn {
             background-color: #8B7355;
-            color: white ;
+            color: white !important;
             font-weight: bold;
             border-radius: 30px;
             padding: 12px;
@@ -1726,25 +1726,6 @@
             }
         });
 
-        // 綁定商品介紹彈窗
-        $(document).on('click', '.info-btn', function(e) {
-            e.preventDefault();
-            $('#modal-product-title').text($(this).data('title'));
-            $('#modal-product-img').attr('src', $(this).data('img'));
-            $('#modal-product-desc').html($(this).data('desc').replace(/\n/g, '<br>'));
-            $('#modal-product-spec').html($(this).data('spec'));
-            $('#productModal').modal('show');
-        });
-
-        // 🔥新增：綁定食譜彈窗事件
-        $(document).on('click', '.recipe-btn', function(e) {
-            e.preventDefault();
-            $('#modal-recipe-title').text($(this).data('title'));
-            $('#modal-recipe-img').attr('src', $(this).data('img'));
-            $('#modal-recipe-desc').html($(this).data('desc').replace(/\n/g, '<br>'));
-            $('#recipeModal').modal('show');
-        });
-        
         // 手機端 Touch 滑動刪除核心演算法
         function initSwipeDeleteEvents() {
             let startX = 0;
